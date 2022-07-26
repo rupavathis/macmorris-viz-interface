@@ -1,0 +1,17 @@
+.mapContainer{
+    // overflow: hidden;
+    height: 100%;
+    // border: solid red;
+    // min-height: 0;
+    // min-width: 0;
+    // background-color: rgb(112, 192, 216);
+}
+button{
+    background: none;
+    border: none;
+    cursor: pointer;
+    > img{
+        width: 20px;
+        height: 20px;
+    }
+}

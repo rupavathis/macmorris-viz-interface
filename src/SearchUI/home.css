@@ -1,0 +1,37 @@
+.Home{
+    background-color: blueviolet;
+    height: 100%;
+    flex-direction: row
+}
+
+.Header{
+    flex: 10%;
+    display: flex;
+    background-color: aquamarine;
+}
+
+.SearchBar{
+    display: flex;
+    flex: 20%;
+    background-color: bisque;
+}
+
+.AdvancedSearch{
+    display: flex;
+    flex: 20%;
+    background-color: wheat;
+}
+
+.ContentBar{
+    display: flex;
+    flex: 40%;
+    background-color: whitesmoke;
+}
+
+.Footer{
+    display: flex;
+    flex: 10%;
+    background-color: white;
+    align-items: center;
+    justify-content: center;
+}

@@ -1,0 +1,36 @@
+.Home{
+    display: flex;
+    flex: column;
+    height: 100%
+}
+.SidePanel{
+    flex:0%;
+    background-color: peachpuff;
+    height: 100%;
+    transition: all 0.8s ease-in-out;
+}
+
+.SidePanel.expanded{
+    flex:20%;
+    background-color: peachpuff;
+    height: 100%
+}
+
+.ContentBar{
+    flex:100%;
+    background-color: aqua;
+    height: 100%;
+
+}
+
+
+.Legend{
+    display: block;
+    height: 20%;
+    width: 20%;
+    background-color: brown;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: 1;
+}

@@ -1,0 +1,17 @@
+.infoBar{
+    display: block;
+    height: 50%;
+    width: 20%;
+    background-color: honeydew;
+    top: 10;
+    right: 0;
+    position: absolute;
+    z-index: 1;
+    padding: 20px 20px 20px 20px;
+}
+.css-1ri6ub7-MuiPaper-root-MuiCard-root{
+    margin-left: auto;
+    overflow: scroll;
+    max-height: 70%;
+  
+} 
