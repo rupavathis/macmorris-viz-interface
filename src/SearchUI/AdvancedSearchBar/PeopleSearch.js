@@ -5,7 +5,7 @@ import Container from "@mui/material/Container";
 
 export default function PeopleSearch() {
   
-  const gender = {
+  const test = {
     options: [{title: "Male"}, {title: "Female"}],
     getOptionLabel: (option) => option.title,
   };
@@ -36,17 +36,31 @@ export default function PeopleSearch() {
   };
 
   const [selectedRDesignation, setRDesignation] = React.useState(rDesignation[0]);
+  const [gender, setGender] = React.useState([]);
 
+  async function fetchGender() {
+    // console.log("Inside fetch gender")
+    const genderRes = fetch("http://localhost:3000/genders",{
+      mode: 'no-cors',
+      credentials: 'include',
+      method: 'POST'
+  })
+    const genderJson = (await genderRes).json();
+    console.log(genderJson)
+    setGender(genderJson)
+    console.log(gender)
+  }
 
   return (
     <div>
     <Container>
       <Autocomplete
         multiple
-        {...gender}
+        {...test}
         id="auto-complete"
         autoComplete
         includeInputInList
+        onChange={(event, value) => fetchGender(event, value)}
         renderInput={(params) => (
           <TextField {...params} label="Gender" variant="standard" />
         )}

@@ -2,7 +2,6 @@ import * as React from "react";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Container from "@mui/material/Container";
-import Button from '@mui/material/Button';
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -111,7 +110,6 @@ export default function WorkSearch() {
      label="Is bardic poem?" />
     </FormGroup>
     </Container>
-      <Button variant="outlined">Search</Button> 
 </div>
   );
 }
