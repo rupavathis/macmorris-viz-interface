@@ -9,6 +9,11 @@ import TableHead from '@material-ui/core/TableHead';
 import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Container from '@mui/material/Container';
+import {
+  Link,
+  Routes,
+  Route,
+} from "react-router-dom";
 
 
 const columns = [
@@ -129,6 +134,7 @@ export default function ContentBar() {
         onRowsPerPageChange={handleChangeRowsPerPage}
       />
     </Paper>
+    <Link to="/profile"> Profile Page  </Link>
     </Container>
   );
 }

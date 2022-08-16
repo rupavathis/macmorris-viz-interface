@@ -1,24 +1,21 @@
-.Home{
+.Network{
     display: flex;
-    flex: column;
+    flex: row;
     height: 100%
 }
 .SidePanel{
     flex:0%;
-    background-color: peachpuff;
     height: 100%;
     transition: all 0.8s ease-in-out;
 }
 
 .SidePanel.expanded{
     flex:20%;
-    background-color: peachpuff;
     height: 100%
 }
 
 .ContentBar{
     flex:100%;
-    background-color: aqua;
     height: 100%;
 
 }

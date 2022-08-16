@@ -15,39 +15,68 @@ export default function PeopleSearch() {
   const [roles, setRoles] = React.useState([]);
   const [roleAttribs, setRoleAttribs] = React.useState([]);
 
-  const fetchData =  async () => {
-    const res = await fetch("/genders");
-    const resJson = await res.json();
-    console.log("I'm in fetchGenders");
-    setGenders(resJson);
 
-    const rDesignation = await fetch("/religious_designations");
-    const rDesignationJson = await rDesignation.json();
-    setRDesignations(rDesignationJson);
 
-    const rOrders = await fetch("/religious_orders");
-    const rOrdersJson = await rOrders.json();
-    setROrders(rOrdersJson);
-
-    const rSubTypes = await fetch("/religious_subtypes");
-    const rSubTypesJson = await rSubTypes.json();
-    setRSubTypes(rSubTypesJson);
-
-    const roles = await fetch("/roles");
-    const rolesJson = await roles.json();
-    setRoles(rolesJson);
-
-    const attribs = await fetch("/attribs");
-    const attribsJson = await attribs.json();
-    setRoleAttribs(attribsJson);
-
+  const fetchGender = async () => {
+    const gendersRes = await fetch("/genders");
+    const gendersJson = await gendersRes.json();
+    console.log("I'm in fetchGender");
+    return gendersJson;
   };
 
+  const fetchRDesignation = async () => {
+    const rDesignations = await fetch("/religious_designations");
+    const rDesignationsJson = await rDesignations.json();
+    return rDesignationsJson;
+  };
+
+  const fetchROrders = async () => {
+    const rOrders = await fetch("/religious_orders");
+    const rOrdersJson = await rOrders.json();
+    return rOrdersJson;
+  };
+
+  const fetchRSubTypes = async () => {
+    const rSubTypes = await fetch("/religious_subtypes");
+    const rSubTypesJson = await rSubTypes.json();
+    return rSubTypesJson;
+  };
+
+  const fetchRoles = async () => {
+    const roles = await fetch("/roles");
+    const rolesJson = await roles.json();
+    return rolesJson;
+  };
+
+  const fetchRoleAttribs = async () => {
+    const attribs = await fetch("/attribs");
+    const attribsJson = await attribs.json();
+    return attribsJson;
+  };
+
+  async function initialSet() {
+    const genders = await fetchGender();
+    setGender(genders);
+    const rDesignations = await fetchRDesignation();
+    setRDesignations(rDesignations);
+    const rOrders = await fetchROrders();
+    setROrders(rOrders);
+    const rSubTypes = await fetchRSubTypes();
+    setRSubTypes(rSubTypes);
+    const roles = await fetchRoles();
+    setRoles(roles);
+    const roleAttribs = await fetchRoleAttribs();
+    setRoleAttribs(roleAttribs);
+  }
 
   useEffect(() => {
-    fetchData();
-  },[]);
+    initialSet();
+  });
 
+  
+  const [selectedRDesignation, setSelectedRDesignation] = React.useState(
+    rDesignation[0]
+  );
 
   return (
     <div>
@@ -60,17 +89,20 @@ export default function PeopleSearch() {
           autoComplete
           getOptionLabel={(option) => option.name || ""}
           includeInputInList
+          // onChange={(event, value) => {console.log(gender);fetchGender(event, value)}}
           renderInput={(params) => (
             <TextField {...params} label="Gender" variant="standard" />
           )}
         />
-
         <Autocomplete
           id="auto-complete"
           options={rDesignations}
           getOptionLabel={(option) => option.name || ""}
           autoComplete
           includeInputInList
+          onChange={(event, selectedRDesignation) => {
+            setSelectedRDesignation(selectedRDesignation);
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -84,7 +116,11 @@ export default function PeopleSearch() {
           options={rSubTypes}
           getOptionLabel={(option) => option.name || ""}
           autoComplete
+          value={selectedRDesignation}
           includeInputInList
+          onChange={(event, selectedRDesignation) => {
+            setSelectedRDesignation(selectedRDesignation);
+          }}
           renderInput={(params) => (
             <TextField
               {...params}
@@ -94,11 +130,16 @@ export default function PeopleSearch() {
           )}
         />
         <Autocomplete
+          {...rOrder}
           id="auto-complete"
           options={rOrders}
           getOptionLabel={(option) => option.name || ""}
           autoComplete
+          value={selectedRDesignation}
           includeInputInList
+          onChange={(event, selectedRDesignation) => {
+            setSelectedRDesignation(selectedRDesignation);
+          }}
           renderInput={(params) => (
             <TextField {...params} label="Religious Order" variant="standard" />
           )}
@@ -108,7 +149,11 @@ export default function PeopleSearch() {
           options={roles}
           getOptionLabel={(option) => option.name || ""}
           autoComplete
+          value={selectedRDesignation}
           includeInputInList
+          onChange={(event, selectedRDesignation) => {
+            setSelectedRDesignation(selectedRDesignation);
+          }}
           renderInput={(params) => (
             <TextField {...params} label="Roles" variant="standard" />
           )}
@@ -117,12 +162,15 @@ export default function PeopleSearch() {
           id="auto-complete"options={roleAttribs}
           getOptionLabel={(option) => option.name || ""}
           autoComplete
+          value={selectedRDesignation}
           includeInputInList
+          onChange={(event, selectedRDesignation) => {
+            setSelectedRDesignation(selectedRDesignation);
+          }}
           renderInput={(params) => (
             <TextField {...params} label="Attributes" variant="standard" />
           )}
         />
-
       </Container>
     </div>
   );

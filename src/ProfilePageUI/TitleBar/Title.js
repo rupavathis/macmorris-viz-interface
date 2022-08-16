@@ -1,11 +1,12 @@
+import { Container } from '@mui/system';
 import React from 'react';
 
-function Title() {
+function Title({author}) {
 
   return (
-    <div>
-        Author's name
-    </div>
+    <Container>
+        {author}
+    </Container>
 
   );
 }

@@ -9,6 +9,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import IconButton from '@mui/material/IconButton';
 import Collapse from '@mui/material/Collapse';
 import './Info.css'
+import { Container } from '@mui/system';
 
 const ExpandMore = styled((props) => {
   const { expand, ...other } = props;
@@ -28,15 +29,16 @@ function Info() {
     setExpanded(!expanded);
   };
     return (
-          <Card sx={{ maxWidth: 345 }} overflow="scroll">
+      <Container>
+        <Card sx={{ maxWidth: 345 }} overflow="scroll">
             <CardHeader  title="James butler"
              subheader="m2816" />
-             <CardMedia
+             {/* <CardMedia
               component="img"
               height="194"
-              image="/cards/irish.webp"
+              // image="/cards/irish.webp"
               alt="Paella dish"
-            />
+            /> */}
              <CardContent>
               <Typography variant="body2" color="text.secondary">
               This impressive paella is a perfect party dish and a fun meal to cook
@@ -62,8 +64,9 @@ function Info() {
               </CardContent>
             </Collapse>
           </Card>
+      </Container>
+          
     );
   }
   
   export default Info;
-  

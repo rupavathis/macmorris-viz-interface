@@ -1,5 +1,5 @@
 .ContentBar{
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     height: 100%;
     flex-direction: column
 }
@@ -11,7 +11,7 @@
 
 }
 .SecondBar{
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     height: 100%;
     flex: 50%;
     display: flex;
@@ -26,7 +26,7 @@
 .ConnectedPeople{
     flex: 40%;
     display: flex;
-    background-color:darkmagenta;
+    /* background-color:darkmagenta; */
 
 }
 .Sources{
@@ -71,3 +71,5 @@
     align-items: center;
     justify-content: center;
 }
+
+

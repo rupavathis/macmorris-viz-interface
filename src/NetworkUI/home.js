@@ -20,7 +20,7 @@ function Network() {
 
 
   return (
-    <div className="Home"> 
+    <div className="Network"> 
         
         <div className={clsx("SidePanel", { "expanded": toggleMenu })}>  <Side toggleMenuBar={toggleMenuBar}/> </div>
         <div className="ContentBar"> <Content /> </div>

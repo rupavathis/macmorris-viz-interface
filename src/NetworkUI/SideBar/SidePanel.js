@@ -1,5 +1,6 @@
 import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
+import { Container } from '@mui/system';
 
 function SidePanel({toggleMenuBar}) {
 
@@ -19,7 +20,7 @@ const defaultProps = {
   getOptionLabel: (option) => option.title,
 };
   return (
-    <div> 
+    <Container> 
        Search 
        {/* <Button variant="contained">Hello World</Button> */}
         <Autocomplete
@@ -32,7 +33,7 @@ const defaultProps = {
         )}
       />
       <button onClick={toggleMenuBar}> Search</button>
-    </div>
+    </Container>
   );
 }
 

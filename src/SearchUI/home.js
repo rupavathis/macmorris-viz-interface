@@ -9,7 +9,7 @@ import './home.css'
 function Home() {
 
   return (
-    <div className="Home"> 
+    <div className="Search"> 
         <div className='Header'><Header /></div>
         <div className='SearchBar'> <SearchBar /> </div>
         <div className='AdvancedSearch'> <AdvancedSearchBar/></div>

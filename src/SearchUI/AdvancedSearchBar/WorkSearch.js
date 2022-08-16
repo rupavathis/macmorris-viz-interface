@@ -1,4 +1,5 @@
 import * as React from "react";
+import { useEffect } from "react";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Container from "@mui/material/Container";
@@ -7,36 +8,43 @@ import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 
 export default function WorkSearch() {
-  
-  const workFormat = {
-    options: [{title: "Male"}, {title: "Female"}],
-    getOptionLabel: (option) => option.title,
+
+  const [workFormats, setWorkFormats] = React.useState([]);
+  const [languages, setLanguages] = React.useState([]);
+  const [workClassifications, setWorkClassifications] = React.useState([]);
+  const [dateRange, setDateRange] =  React.useState([]);  
+  const [places, setPlaces] = React.useState([]);
+  const [displayTitles, setDisplayTitles] = React.useState([]);
+
+  const fetchData =  async () => {
+    const workFormatRes = await fetch("/work_formats");
+    const workFormatJson = await workFormatRes.json();
+    console.log("I'm in fetchGenders");
+    setWorkFormats(workFormatJson);
+
+    const languages = await fetch("/languages");
+    const languagesJson = await languages.json();
+    setLanguages(languagesJson)
+
+    const workClassificationsRes = await fetch("/work_classifications");
+    const workClassificationsJson = await workClassificationsRes.json();
+    setWorkClassifications(workClassificationsJson);
+
+    const placesRes = await fetch("/places");
+    const placesJson = await placesRes.json();
+    setPlaces(placesJson);
+
+    const worksRes = await fetch("/works");
+    const worksJson = await worksRes.json();
+    setDisplayTitles(worksJson);
+
   };
 
-  const language = {  
-    options: [{title: "Protestant", name: "Protestant"}, {title: "Catholic", name: "Catholic"}, {title: "Other", name:"Other"}],
-    getOptionLabel: (option) => option.title,    
-  };
 
-  const workClassification = {  
-    options: [{title: "Protestant", name: "Protestant"}, {title: "Catholic", name: "Catholic"}, {title: "Other", name:"Other"}],
-    getOptionLabel: (option) => option.title,    
-  };
+  useEffect(() => {
+    fetchData();
+  },[]);
 
-  const dateRange = {  
-    options: [{title: "Protestant", name: "Protestant"}, {title: "Catholic", name: "Catholic"}, {title: "Other", name:"Other"}],
-    getOptionLabel: (option) => option.title,    
-  };
-
-  const place = {  
-    options: [{title: "Protestant", name: "Protestant"}, {title: "Catholic", name: "Catholic"}, {title: "Other", name:"Other"}],
-    getOptionLabel: (option) => option.title,    
-  };
-
-  const displayTitle = {  
-    options: [{title: "Protestant", name: "Protestant"}, {title: "Catholic", name: "Catholic"}, {title: "Other", name:"Other"}],
-    getOptionLabel: (option) => option.title,    
-  };
 
   const [bardicChecked, setBardicChecked] = React.useState(false);
 
@@ -49,8 +57,9 @@ export default function WorkSearch() {
     <div>
     <Container>
       <Autocomplete
-        {...workFormat}
         id="auto-complete"
+        options={workFormats}
+        getOptionLabel={(option) => option.name || ""}
         autoComplete
         includeInputInList
         renderInput={(params) => (
@@ -58,7 +67,8 @@ export default function WorkSearch() {
         )}
       />
        <Autocomplete
-        {...language}
+        options={languages}
+        getOptionLabel={(option) => option.name || ""}
         id="auto-complete"
         autoComplete
         includeInputInList
@@ -67,7 +77,8 @@ export default function WorkSearch() {
         )}
       />
        <Autocomplete
-        {...workClassification}
+        options={workClassifications}
+        getOptionLabel={(option) => option.name || ""}
         id="auto-complete"
         autoComplete
         includeInputInList
@@ -75,7 +86,7 @@ export default function WorkSearch() {
           <TextField {...params} label="Work Classification" variant="standard" />
         )}
       />
-       <Autocomplete
+       {/* <Autocomplete
         {...dateRange}
         id="auto-complete"
         autoComplete
@@ -83,9 +94,10 @@ export default function WorkSearch() {
         renderInput={(params) => (
           <TextField {...params} label="Date range" variant="standard" />
         )}
-      />
+      /> */}
        <Autocomplete
-        {...place}
+        options={places}
+        getOptionLabel={(option) => option.name || ""}
         id="auto-complete"
         autoComplete
         includeInputInList
@@ -94,7 +106,8 @@ export default function WorkSearch() {
         )}
       />
        <Autocomplete
-        {...displayTitle}
+        options={displayTitles}
+        getOptionLabel={(option) => option.display_title || ""}
         id="auto-complete"
         autoComplete
         includeInputInList
