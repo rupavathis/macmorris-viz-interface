@@ -4,6 +4,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Twitter from '@mui/icons-material/Twitter';
 import Email from '@mui/icons-material/Email';
 import Info from '@mui/icons-material/Info';
+import Container from '@mui/material/Container';
 
 export default function Footer() {
   const [value, setValue] = React.useState('recents');
@@ -13,7 +14,7 @@ export default function Footer() {
   };
 
   return (
-    <BottomNavigation sx={{ width: 500 }} value={value} onChange={handleChange}>
+      <BottomNavigation sx={{ width: 500 }} value={value} onChange={handleChange}>
       <BottomNavigationAction
         label="Contact us"
         value="Email"

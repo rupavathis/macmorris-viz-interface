@@ -37,11 +37,23 @@ export default function PeopleSearch() {
     const rolesJson = await roles.json();
     setRoles(rolesJson);
 
-    const attribs = await fetch("/attribs");
-    const attribsJson = await attribs.json();
-    setRoleAttribs(attribsJson);
+    // const attribs = await fetch("/attribs");
+    // const attribsJson = await attribs.json();
+    // setRoleAttribs(attribsJson);
 
   };
+
+  const onRoleChange = async(e, v) => {
+    console.log(v.length)
+    // if(v.length < 0) {
+    //   console.log("inside length")
+    //   setRoleAttribs([]);
+    // }
+    console.log(v.id);
+    const attribsRes = await fetch(`/attribs/roles/${v.id}`);
+    const attribsJson = await attribsRes.json();
+    setRoleAttribs(attribsJson);
+  }
 
 
   useEffect(() => {
@@ -53,7 +65,6 @@ export default function PeopleSearch() {
     <div>
       <Container>
         <Autocomplete
-          multiple
           filterSelectedOptions
           options={genders}
           id="auto-complete"
@@ -81,6 +92,7 @@ export default function PeopleSearch() {
         />
         <Autocomplete
           id="auto-complete"
+          multiple
           options={rSubTypes}
           getOptionLabel={(option) => option.name || ""}
           autoComplete
@@ -112,16 +124,19 @@ export default function PeopleSearch() {
           renderInput={(params) => (
             <TextField {...params} label="Roles" variant="standard" />
           )}
+          onChange={(event, value) => onRoleChange(event, value)}
         />
-        <Autocomplete
-          id="auto-complete"options={roleAttribs}
+        {roleAttribs && <Autocomplete
+          id="auto-complete"
+          multiple
+          options={roleAttribs}
           getOptionLabel={(option) => option.name || ""}
           autoComplete
           includeInputInList
           renderInput={(params) => (
             <TextField {...params} label="Attributes" variant="standard" />
           )}
-        />
+        />}
 
       </Container>
     </div>

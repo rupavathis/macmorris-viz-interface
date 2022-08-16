@@ -10,10 +10,10 @@ function Home() {
 
   return (
     <div className="Search"> 
-        <div className='Header'><Header /></div>
+        <div className='SHeader'><Header /></div>
         <div className='SearchBar'> <SearchBar /> </div>
-        <div className='AdvancedSearch'> <AdvancedSearchBar/></div>
-        <div className='Footer'> <Footer/> </div>
+        {/* <div className='AdvancedSearch'> <AdvancedSearchBar/></div> */}
+        <div className='SFooter'> <Footer/> </div>
     </div>
 
   );

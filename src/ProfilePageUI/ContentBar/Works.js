@@ -10,42 +10,37 @@ import Paper from '@mui/material/Paper';
 
 export default function Works({ works }) {
 
-  const worksParams = works;
+  // const worksParams = works;
 
-  function createData( values) {
-    console.log( values, "\n");
-    return { values };
+  function createData(value1, value2) {
+    return { value1, value2 };
   }
-  const rows = [
-    // createData((works.map((w) => {console.log(w.display_title); return w.display_title}))),
-    // createData((works[0])),
-    // createData((works[1])),
-    // createData((works[2])),
-    // createData((works.map((w) =>  w.display_title), (works.map((w) =>  w.link_uri)))),
-  ]
+
+  const rows = works.map((w) => createData(w.work_date, w.display_title));
+
 
   return (
     <Container>
-    <TableContainer component={Paper}>
-    <Table sx={{ minWidth: 150 }} aria-label="simple table">
-      <TableHead>
-        <TableRow>
-          <TableCell align="center">Works</TableCell>
-        </TableRow>
-      </TableHead>
-      <TableBody>
-        {rows.map((row) => (
-          <TableRow
-            key={row.values}
-            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-          >
+      <TableContainer component={Paper}>
+        <Table sx={{ minWidth: 150 }} aria-label="simple table" size="small">
+          <TableBody>
+            {rows.map((row) => (
+              <TableRow
+                key={row.values}
+                sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+              >
 
-            <TableCell align="center">{row.values}</TableCell></TableRow>
+                <TableCell component="th" scope="row">
+                  {row.value2}
+                </TableCell>
+                <TableCell align="right">
+                  {row.value1}</TableCell></TableRow>
 
-        ))}
-      </TableBody>
-    </Table>
-  </TableContainer>
-</Container>
+
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Container>
   );
 }

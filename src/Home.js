@@ -17,9 +17,9 @@ function Home() {
             <li>
               <Link to="/search">Search UI</Link>
             </li>
-            <li>
-              <Link to="/profile">Profile UI</Link>
-            </li>
+            {/* <li>
+              <Link to="/profile/150">Profile UI</Link>
+            </li> */}
             <li>
               <Link to="/works">Works UI</Link>
             </li>

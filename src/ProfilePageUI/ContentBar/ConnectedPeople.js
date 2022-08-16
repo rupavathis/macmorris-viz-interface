@@ -18,11 +18,12 @@ import {
 
 export default function Connections({ connections }) {
 
-  function createData(values) {
-    return { values };
+  function createData(value1, value2) {
+    return { value1, value2 };
   }
 
-  const rows = connections.map((conn) => createData(conn.display_name));
+  const rows = connections.map((conn) => createData(conn.id, conn.display_name));
+  // const rows = rows_duplicates.filter((item, index) => rows_duplicates(item) === index);
 
   const [linkClicked, setLinkClicked] = useState(false);
   const clickLink = () =>{
@@ -40,8 +41,8 @@ export default function Connections({ connections }) {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell align="center">
-                  <Link to="/profile">
-                    {row.values}
+                  <Link to={`/profile/${row.value1}`}>
+                    {row.value2} {row.value1}
                   </Link></TableCell></TableRow>
             ))}
           </TableBody>

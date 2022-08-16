@@ -7,6 +7,8 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Link from '@mui/material/Link';
+
 
 export default function ExternalSources({ sources }) {
 
@@ -15,24 +17,18 @@ export default function ExternalSources({ sources }) {
     return { name, values };
   }
   const rows = [
-    createData('ODNB', sources[0]),
-    createData('DIB', sources[1]),
+    createData('ODNB', "https://doi.org/10.1093/ref:odnb/"+sources[0]),
+    createData('DIB', "https://doi.org/10.3318/dib."+sources[1]+".v1"),
     createData('TNOP', sources[2]),
-    createData('Wikidata', sources[3]),
-    createData('AINM', sources[4]),
-    createData('SDFB', sources[5]),
+    createData('Wikidata', "https://www.wikidata.org/wiki/"+sources[3]),
+    createData('AINM', "https://www.ainm.ie/Bio.aspx?ID="+sources[4]),
+    createData('SDFB', "http://sixdegreesoffrancisbacon.com/?ids="+sources[5]),
   ].filter(e => e.values != null);
 
   return (
     <Container>
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 650 }} aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell align="right">External Sources</TableCell>
-              <TableCell align="right"></TableCell>
-            </TableRow>
-          </TableHead>
           <TableBody>
             {rows.map((row) => (
               <TableRow
@@ -42,7 +38,8 @@ export default function ExternalSources({ sources }) {
                 <TableCell component="th" scope="row">
                   {row.name}
                 </TableCell>
-                <TableCell align="right">{row.values}</TableCell></TableRow>
+                <TableCell align="right">
+                  <Link href= {row.values}>{row.values}</Link></TableCell></TableRow>
 
             ))}
           </TableBody>
