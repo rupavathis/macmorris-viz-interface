@@ -40,7 +40,6 @@ export default function SearchBar() {
   }
 
   return (
-    // <div className="SearchBarContainer">
       <Container>
         <Container>
         <Autocomplete

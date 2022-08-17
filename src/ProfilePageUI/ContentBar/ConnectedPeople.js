@@ -42,7 +42,7 @@ export default function Connections({ connections }) {
               >
                 <TableCell align="center">
                   <Link to={`/profile/${row.value1}`}>
-                    {row.value2} {row.value1}
+                    {row.value2}
                   </Link></TableCell></TableRow>
             ))}
           </TableBody>

@@ -47,9 +47,7 @@ function a11yProps(index) {
   };
 }
 
-function ContentBar() {
-  // id = 3190; //works printer
-  // const id = 200;
+function ContentBar({bioInfo, roles, sources, connections, works}) {
 
   const [value, setValue] = React.useState(0);
 
@@ -57,67 +55,7 @@ function ContentBar() {
     setValue(newValue);
   };
 
-  const [id, setId] = useState(-1);
-
-  const [bioInfo, setBioInfo] = useState([]);
-  const [roles, setRoles] = useState([]);
-  const [sources, setSources] = useState([]);
-  const [works, setWorks] = useState([]);
-  const [connections, setConnections] = useState([]);
-
-  const fetchBioInfo = useCallback(async (id) => {
-    const res = await fetch(`/people/${id}`);
-    const resJson = await res.json();
-    setBioInfo(resJson);
-    // console.log(resJson);
-    const attrib = resJson.attribs;
-    const roles = await attrib.map((a) => { return a.name });
-    setRoles(roles);
-    // console.log(roles);
-    const sources = [];
-    sources.push(resJson.odnb_id);
-    sources.push(resJson.dib_id);
-    sources.push(resJson.tnop_id);
-    sources.push(resJson.wikidata_id);
-    sources.push(resJson.ainm_id);
-    sources.push(resJson.sdfb);
-    // console.log(sources);
-    setSources(sources);
-
-    const workRes = await fetch(`/people/${id}/works`);
-    const workResJson = await workRes.json();
-    console.log(workResJson);
-
-    
-    let works = workResJson.reduce((ac,a) => ac.find(x=> x.id === a.id) ? [...ac] : [...ac,a],[]);
-    console.log(works);
-    setWorks(works);
-
-
-    const connectionsRes = await fetch(`/people/${id}/connections`);
-    const connectionsResJson = await connectionsRes.json();
-    console.log(connections, connectionsResJson);
-    setConnections(connectionsResJson);
-
-  }, [])
-
-
-  useEffect(() => { 
-    if(document.URL.includes('/profile')){
-      const url = document.URL;  
-      const id = url.substring(url.lastIndexOf('/') + 1);      
-      console.log("id", id);
-      setId(id);
-    }
-    },[]);
-    
-    useEffect(() => {
-      if(id != -1) {
-        fetchBioInfo(id);
-      }
-      }, [id]);
-    
-
+ 
   return (
     <Container>
 

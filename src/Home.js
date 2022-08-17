@@ -20,9 +20,9 @@ function Home() {
             {/* <li>
               <Link to="/profile/150">Profile UI</Link>
             </li> */}
-            <li>
+            {/* <li>
               <Link to="/works">Works UI</Link>
-            </li>
+            </li> */}
             <li>
               <Link to="/network">Network UI</Link>
             </li>

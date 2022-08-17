@@ -69,7 +69,7 @@ export default function ContentBar({data}) {
   console.log("Search contentbar", data);
  
   const rows = [
-    createData(data.display_name, data.date_of_birth, data.date_of_flourishing, data.date_of_death, data.gender?.name, data.attribs?.reduce((deletedData, name) => deletedData.concat(`${name.name}`), '')),
+    createData(data.display_name, data.date_of_birth, data.date_of_flourishing, data.date_of_death, data.gender?.name, data.attribs?.reduce((deletedData, name) => deletedData.concat(`${name.name}`+ ' , '), '')),
    
   ];
  

@@ -20,7 +20,7 @@ function App() {
           <Route exact path="/" element={<Home/>} />
           <Route path="/search/*" element={<SearchUI/>} />
           <Route path="/profile/*" element={<ProfileUI/>} />
-          <Route path="/works" element={<WorksUI/>} />
+          <Route path="/works/*" element={<WorksUI/>} />
           {/* <Route path="/network" element={<NetworkUI/>} /> */}
           {/* <Route path="/map" element={<MapUI/>} /> */}
          

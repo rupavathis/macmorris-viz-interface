@@ -7,16 +7,17 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import {Link} from "react-router-dom";
 
 export default function Works({ works }) {
 
   // const worksParams = works;
 
-  function createData(value1, value2) {
-    return { value1, value2 };
+  function createData(id, value1, value2) {
+    return { id, value1, value2 };
   }
 
-  const rows = works.map((w) => createData(w.work_date, w.display_title));
+  const rows = works.map((w) => createData(w.id, w.work_date, w.display_title));
 
 
   return (
@@ -31,7 +32,9 @@ export default function Works({ works }) {
               >
 
                 <TableCell component="th" scope="row">
-                  {row.value2}
+                <Link to={`/works/${row.id}`}>
+                    {row.value2}
+                  </Link>
                 </TableCell>
                 <TableCell align="right">
                   {row.value1}</TableCell></TableRow>
