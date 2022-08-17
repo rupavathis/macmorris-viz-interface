@@ -12,8 +12,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Container from "@mui/material/Container";
-import Button from '@mui/material/Button';
-import ContentBar from '../ContentBar/ContentBar.js'
+
 
 
 
@@ -26,9 +25,7 @@ export default function AdvancedSearch() {
     setSelectedValue(event.target.value)
   };
 
-  const handleSearch = () => {
-    setSearch(true);
-  };
+
 
   return (
     <Container>
@@ -61,9 +58,7 @@ export default function AdvancedSearch() {
         {selectedValue === "people" && <PeopleSearch />}
         {selectedValue === "work" && <WorkSearch />}
       </AccordionDetails>
-      <Button variant="outlined" onClick={handleSearch}>Search</Button> 
     </Accordion>
-      {search && <ContentBar />}
     </Container>
   );
 }

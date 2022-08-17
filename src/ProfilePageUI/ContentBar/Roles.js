@@ -23,7 +23,7 @@ export default function Roles({roles}) {
         <Table sx={{ minWidth: 150 }} aria-label="simple table">
           <TableHead>
             <TableRow>
-              <TableCell align="center">Roles</TableCell>
+              <TableCell align="center"><b>Roles</b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

@@ -8,6 +8,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Header from '../SearchUI/Header/Header.js'
+import Link from '@mui/material/Link';
 
 
 
@@ -45,20 +46,20 @@ function Works() {
     }, [workID])
 
 
-    function createData(name, value){
-        return { name, value}
+    function createData(name, value) {
+        return { name, value }
     }
 
     const rows = [
         createData('Brief Title', works.display_title),
         createData('Language', works.language?.name),
-        createData('Work Classification', works.work_classification?.reduce((deletedData, name) => deletedData.concat(`${name.name}`+ '  '), '')),
+        createData('Work Classification', works.work_classification?.reduce((deletedData, name) => deletedData.concat(`${name.name}` + '  '), '')),
         createData('Title', works.title),
         createData('Author', works.author_id?.display_name),
-        createData('Patron', works.patron_id?.reduce((deletedData, name) => deletedData.concat(`${name.display_name}`+ '  '), '')),
-        createData('Printer', works.printer_id?.reduce((deletedData, name) => deletedData.concat(`${name.display_name}`+ '  '), '')),
-        createData('Publisher', works.publisher_id?.reduce((deletedData, name) => deletedData.concat(`${name.display_name}`+ '  '), '')),
-        createData('Bookseller', works.bookseller_id?.reduce((deletedData, name) => deletedData.concat(`${name.display_name}`+ '  '), '')),
+        createData('Patron', works.patron_id?.reduce((deletedData, name) => deletedData.concat(`${name.display_name}` + '  '), '')),
+        createData('Printer', works.printer_id?.reduce((deletedData, name) => deletedData.concat(`${name.display_name}` + '  '), '')),
+        createData('Publisher', works.publisher_id?.reduce((deletedData, name) => deletedData.concat(`${name.display_name}` + '  '), '')),
+        createData('Bookseller', works.bookseller_id?.reduce((deletedData, name) => deletedData.concat(`${name.display_name}` + '  '), '')),
         createData('Date', works.work_date),
         createData('Link URL', works.link_uri)
 
@@ -69,27 +70,41 @@ function Works() {
         <div>
             <Header />
             <Container>
+                <h2>Work Details</h2>
                 <TableContainer component={Paper}>
                     <Table sx={{ minWidth: 650 }} aria-label="simple table">
-                        <TableHead>
-                            {/* <TableRow>
-                                <TableCell>Dessert (100g serving)</TableCell>
-                                <TableCell align="right">Calories</TableCell>
-                            </TableRow> */}
-                        </TableHead>
                         <TableBody>
-                            {rows.map((row) => (
-                                <TableRow
-                                    key={row.name}
-                                    sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-                                >
-                                    <TableCell component="th" scope="row">
-                                        {row.name}
-                                    </TableCell>
-                                    <TableCell align="right">{row.value}</TableCell>
-                               
-                                </TableRow>
-                            ))}
+                            {rows.map((row) => {
+
+                                if (row.name === "Link URL") {
+                                    return (
+                                        <TableRow
+                                            key={row.name}
+                                            sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                        >
+                                            <TableCell component="th" scope="row">
+                                                <b>{row.name}</b>
+                                            </TableCell>
+                                            <TableCell align="right">
+                                                <Link href={row.value}>{row.value}</Link>
+                                            </TableCell>
+                                        </TableRow>
+                                    )
+                                }
+
+                                return (
+                                    <TableRow
+                                        key={row.name}
+                                        sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
+                                    >
+                                        <TableCell component="th" scope="row">
+                                            <b>{row.name}</b>
+                                        </TableCell>
+                                        <TableCell align="right">{row.value}</TableCell>
+
+                                    </TableRow>)
+                            }
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>

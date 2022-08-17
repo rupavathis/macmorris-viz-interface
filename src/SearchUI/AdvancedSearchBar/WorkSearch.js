@@ -1,20 +1,36 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
 import Container from "@mui/material/Container";
 import Checkbox from '@mui/material/Checkbox';
 import FormGroup from '@mui/material/FormGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import './WorkSearch.css';
+import ContentBar from '../ContentBar/WorkSearchData.js'
+import Button from '@mui/material/Button';
+
 
 export default function WorkSearch() {
 
-  const [workFormats, setWorkFormats] = React.useState([]);
-  const [languages, setLanguages] = React.useState([]);
-  const [workClassifications, setWorkClassifications] = React.useState([]);
-  const [dateRange, setDateRange] =  React.useState([]);  
-  const [places, setPlaces] = React.useState([]);
-  const [displayTitles, setDisplayTitles] = React.useState([]);
+  const [workFormats, setWorkFormats] = useState([]);
+  const [languages, setLanguages] = useState([]);
+  const [workClassifications, setWorkClassifications] = useState([]);
+  const [dateRange, setDateRange] =  useState([]);  
+  const [places, setPlaces] = useState([]);
+  const [displayTitles, setDisplayTitles] = useState([]);
+  const [peopleData, setPeopleData] = useState([]);
+  const [search, setSearch] = useState(false);
+
+  const handleSearch = async() => {
+    setSearch(true);
+    const peopleRes = await fetch(`/works/1`);
+    const peopleJson = await peopleRes.json();
+    setPeopleData(peopleJson);
+    console.log("People data", peopleJson);
+  };
+
+
 
   const fetchData =  async () => {
     const workFormatRes = await fetch("/work_formats");
@@ -86,15 +102,9 @@ export default function WorkSearch() {
           <TextField {...params} label="Work Classification" variant="standard" />
         )}
       />
-       {/* <Autocomplete
-        {...dateRange}
-        id="auto-complete"
-        autoComplete
-        includeInputInList
-        renderInput={(params) => (
-          <TextField {...params} label="Date range" variant="standard" />
-        )}
-      /> */}
+       
+     
+      
        <Autocomplete
         options={places}
         getOptionLabel={(option) => option.name || ""}
@@ -115,7 +125,24 @@ export default function WorkSearch() {
           <TextField {...params} label="Display title" variant="standard" />
         )}
       />   
-    <FormGroup>
+       <div className="DateRange">
+       <div className="DateRangeLabel">Date Range</div>
+      <TextField
+          id="standard-search"
+          label="From"
+          type="search"
+          variant="standard"
+          size="small"
+        />
+        <div className="DateRangeHyphen">-</div> <TextField
+          id="standard-search"
+          label="To"
+          type="search"
+          variant="standard"
+          size="small"
+        />
+      </div>
+    <FormGroup className="FormBardic">
       <FormControlLabel control={<Checkbox checked={bardicChecked}
       onChange={handleBardicChange}
       inputProps={{ 'aria-label': 'controlled' }}
@@ -123,6 +150,8 @@ export default function WorkSearch() {
      label="Is bardic poem?" />
     </FormGroup>
     </Container>
+    <Button variant="outlined" onClick={handleSearch}>Search</Button> 
+      {search && <ContentBar data={peopleData} />}
 </div>
   );
 }

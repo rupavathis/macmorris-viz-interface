@@ -66,7 +66,7 @@ function createData(name, values) {
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
                 <TableCell component="th" scope="row">
-                {row.name}
+                <b>{row.name}</b>
               </TableCell>
               <TableCell align="right">{row.values}</TableCell></TableRow>
               

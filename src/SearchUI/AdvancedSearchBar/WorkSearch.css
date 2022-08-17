@@ -1,0 +1,23 @@
+.DateRange {
+    display: flex;
+    align-items: flex-end;
+    color: rgba(0, 0, 0, 0.6)
+}
+
+.DateRangeLabel{
+    padding-right: 5%;
+}
+
+.DateRangeHyphen{
+
+    padding-left: 5%;
+    padding-right: 5%;
+}
+
+.FormBardic{
+    padding-top: 2%;
+}
+
+.MuiFormControlLabel-label{
+    color: rgba(0, 0, 0, 0.6)
+}

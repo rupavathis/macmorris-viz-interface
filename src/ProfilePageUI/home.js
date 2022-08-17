@@ -35,7 +35,7 @@ function Home() {
   useEffect(() => {
     if (id != -1) {
       fetchData(id);
-     
+
     }
   }, [id]);
 
@@ -70,15 +70,40 @@ function Home() {
     console.log(workResJson);
 
 
-    let works = workResJson.reduce((ac, a) => ac.find(x => x.id === a.id) ? [...ac] : [...ac, a], []);
-    console.log(works);
-    setWorks(works);
+    let worksRes = workResJson.reduce((ac, a) => ac.find(x => x.id === a.id) ? [...ac] : [...ac, a], []);
+    setWorks(worksRes)
 
 
     const connectionsRes = await fetch(`/people/${id}/connections`);
     const connectionsResJson = await connectionsRes.json();
-    console.log(connections, connectionsResJson);
-    setConnections(connectionsResJson);
+    const filteredIDs = connectionsResJson.map((c) => {
+      let filterIDs = [];
+      if (c.source_id.id == id) {
+        filterIDs.id = c.target_id.id;
+        filterIDs.name = c.target_id.name;
+      }
+      if (c.target_id.id == id) {
+        filterIDs.id = c.source_id.id;
+        filterIDs.name = c.source_id.name;
+      }
+      filterIDs.rel_type = c.relationship_types[0].name
+      return filterIDs;
+    }).filter(e => e !== '');
+    // const uniqueFilteredIDs = [...new Set(filteredIDs?.id)]
+
+    const uniqueFilteredIDs = filteredIDs.filter((thing, index, self) =>
+      index === self.findIndex((t) => (
+        t.id === thing.id 
+      ))
+    )
+
+    // console.log("filteredIDs", filteredIDs);
+    // console.log("Unique filteredIDs", uniqueFilteredIDs);
+    // console.log("connections", connectionsResJson);
+
+    const connectionsData = connectionsResJson.filter(e => e.source_id.id != filteredIDs);
+    // console.log("connections data", connectionsData);
+    setConnections(uniqueFilteredIDs);
 
   }, [])
 
@@ -86,7 +111,7 @@ function Home() {
     <div className="Profile">
       <div className='Header'><Header /></div>
       <h1 className='Title'><Title author={authorName} /></h1>
-      <div className='ContentBar'> <ContentBar bioInfo={bioInfo}  roles={roles} sources={sources} connections={connections} works={works}/> </div>
+      <div className='ContentBar'> <ContentBar bioInfo={bioInfo} roles={roles} sources={sources} connections={connections} works={works} /> </div>
       {/* <div className='Footer'> <Footer/> </div> */}
     </div>
 

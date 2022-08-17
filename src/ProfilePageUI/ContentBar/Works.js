@@ -1,5 +1,5 @@
 import { Container } from '@mui/material';
-import React from 'react';
+import React, {useState} from 'react';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableHead from '@mui/material/TableHead';
@@ -8,10 +8,9 @@ import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {Link} from "react-router-dom";
+import './Work.css';
 
 export default function Works({ works }) {
-
-  // const worksParams = works;
 
   function createData(id, value1, value2) {
     return { id, value1, value2 };
@@ -22,6 +21,7 @@ export default function Works({ works }) {
 
   return (
     <Container>
+     
       <TableContainer component={Paper}>
         <Table sx={{ minWidth: 150 }} aria-label="simple table" size="small">
           <TableBody>
@@ -44,6 +44,7 @@ export default function Works({ works }) {
           </TableBody>
         </Table>
       </TableContainer>
+      {works.length == 0 && <div className='NoWorkLabel'>No works to show</div>}
     </Container>
   );
 }

@@ -36,7 +36,7 @@ export default function ExternalSources({ sources }) {
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
-                  {row.name}
+                  <b>{row.name}</b>
                 </TableCell>
                 <TableCell align="right">
                   <Link href= {row.values}>{row.values}</Link></TableCell></TableRow>

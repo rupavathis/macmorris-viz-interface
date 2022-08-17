@@ -1,7 +1,7 @@
 import "./App.css";
 import "./NetworkUI/InfoBar/Info.css";
 import NetworkUI from './NetworkUI/home'
-// import MapUI from './MapUI/home'
+import MapUI from './MapUI/home'
 import SearchUI from "./SearchUI/home";
 import ProfileUI from './ProfilePageUI/home'
 import WorksUI from './WorksUI/home'
@@ -21,8 +21,8 @@ function App() {
           <Route path="/search/*" element={<SearchUI/>} />
           <Route path="/profile/*" element={<ProfileUI/>} />
           <Route path="/works/*" element={<WorksUI/>} />
-          {/* <Route path="/network" element={<NetworkUI/>} /> */}
-          {/* <Route path="/map" element={<MapUI/>} /> */}
+          <Route path="/network" element={<NetworkUI/>} />
+          <Route path="/map" element={<MapUI/>} />
          
         </Routes>
     </div>

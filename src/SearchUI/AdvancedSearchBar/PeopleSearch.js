@@ -1,19 +1,32 @@
 import * as React from "react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import TextField from "@mui/material/TextField";
 import Autocomplete from "@mui/material/Autocomplete";
 import Container from "@mui/material/Container";
+import Button from '@mui/material/Button';
+import ContentBar from '../ContentBar/ContentBar.js'
 
 
 
 export default function PeopleSearch() {
 
-  const [genders, setGenders] = React.useState([]);
-  const [rDesignations, setRDesignations] = React.useState([]);
-  const [rOrders, setROrders] = React.useState([]);
-  const [rSubTypes, setRSubTypes] =  React.useState([]);  
-  const [roles, setRoles] = React.useState([]);
-  const [roleAttribs, setRoleAttribs] = React.useState([]);
+  const [genders, setGenders] = useState([]);
+  const [rDesignations, setRDesignations] = useState([]);
+  const [rOrders, setROrders] = useState([]);
+  const [rSubTypes, setRSubTypes] =  useState([]);  
+  const [roles, setRoles] = useState([]);
+  const [roleAttribs, setRoleAttribs] = useState([]);
+  const [search, setSearch] = useState(false);
+  const [peopleData, setPeopleData] = useState([]);
+  
+  const handleSearch = async() => {
+    setSearch(true);
+    const peopleRes = await fetch(`/people/150`);
+    const peopleJson = await peopleRes.json();
+    setPeopleData(peopleJson);
+    console.log("People data", peopleJson);
+  };
+
 
   const fetchData =  async () => {
     const res = await fetch("/genders");
@@ -137,8 +150,9 @@ export default function PeopleSearch() {
             <TextField {...params} label="Attributes" variant="standard" />
           )}
         />}
-
       </Container>
+      <Button variant="outlined" onClick={handleSearch}>Search</Button> 
+      {search && <ContentBar data={peopleData} />}
     </div>
   );
 }
