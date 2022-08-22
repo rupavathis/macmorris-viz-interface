@@ -2,7 +2,7 @@ import Autocomplete from '@mui/material/Autocomplete';
 import TextField from '@mui/material/TextField';
 import { Container } from '@mui/system';
 
-function SidePanel({toggleMenuBar}) {
+function Filter() {
 
 
   // Top 100 films as rated by IMDb users. http://www.imdb.com/chart/top
@@ -21,7 +21,7 @@ const defaultProps = {
 };
   return (
     <Container> 
-       Search 
+       <b>Filter</b> 
        {/* <Button variant="contained">Hello World</Button> */}
         <Autocomplete
         {...defaultProps}
@@ -32,9 +32,26 @@ const defaultProps = {
           <TextField {...params} label="People" variant="standard" />
         )}
       />
-      <button onClick={toggleMenuBar}> Search</button>
+      <Autocomplete
+        {...defaultProps}
+        id="auto-complete"
+        autoComplete
+        includeInputInList
+        renderInput={(params) => (
+          <TextField {...params} label="Works" variant="standard" />
+        )}
+      />
+      <Autocomplete
+        {...defaultProps}
+        id="auto-complete"
+        autoComplete
+        includeInputInList
+        renderInput={(params) => (
+          <TextField {...params} label="Religious Designation" variant="standard" />
+        )}
+      />
     </Container>
   );
 }
 
-export default SidePanel;
+export default Filter;

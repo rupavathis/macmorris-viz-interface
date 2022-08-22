@@ -27,7 +27,7 @@ function Legend() {
   // const bull = <span className={classes.bullet}>•</span>;
     return (
       <div className="graphLegend" >
-                <Card>
+                 <Card>
                     <CardContent>
                         <Typography className="legendCircleWrapper" variant="body2" color="textSecondary" component="p">
                            <div className="legendCircle poet"></div>
@@ -42,7 +42,7 @@ function Legend() {
                             Connections
                         </Typography>
                     </CardContent>
-                </Card>
+                </Card> 
             </div>
     );
   }
