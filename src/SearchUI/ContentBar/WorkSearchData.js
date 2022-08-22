@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
 import Table from '@material-ui/core/Table';
@@ -10,11 +10,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Container from '@mui/material/Container';
 import {
-  Link,
-  Routes,
-  Route,
+  Link
 } from "react-router-dom";
-import ProfileUI from '../../ProfilePageUI/home'
 
 
 const columns = [

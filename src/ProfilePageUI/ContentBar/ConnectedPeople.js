@@ -18,11 +18,11 @@ import {
 
 export default function Connections({ connections }) {
 
-  function createData(value1, value2, value3) {
-    return { value1, value2, value3 };
+  function createData(value1, value2, value3, value4) {
+    return { value1, value2, value3, value4 };
   }
 
-  const rows = connections.map((conn) => createData(conn.id, conn.name, conn.rel_type));
+  const rows = connections.map((conn) => createData(conn.id, conn.source_id?.name, conn.target_id?.name, conn.relationship_types.map((r) => r.name)));
   // const rows = rows_duplicates.filter((item, index) => rows_duplicates(item) === index);
 
   const [linkClicked, setLinkClicked] = useState(false);
@@ -37,9 +37,10 @@ export default function Connections({ connections }) {
           <TableHead>
             <TableRow>
               <TableCell align="right"></TableCell>
+              <TableCell align="right"></TableCell>
               <TableCell align="right">
                 <Link to={`/network`}>
-                  Show the networks
+                  View the networks
                 </Link>
               </TableCell>
             </TableRow>
@@ -47,14 +48,19 @@ export default function Connections({ connections }) {
           <TableBody>
             {rows.map((row) => (
               <TableRow
-                key={row.values}
+                key={row.value1}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell align="left">
                   <Link to={`/profile/${row.value1}`}>
                     {row.value2}
                   </Link></TableCell>
-                <TableCell align='right'>{row.value3}</TableCell></TableRow>
+                <TableCell align='center'>{row.value4}</TableCell>
+                <TableCell align="right">
+                  <Link to={`/profile/${row.value1}`}>
+                    {row.value3}
+                  </Link></TableCell>
+              </TableRow>
             ))}
           </TableBody>
         </Table>

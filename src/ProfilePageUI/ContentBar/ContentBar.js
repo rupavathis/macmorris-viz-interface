@@ -27,7 +27,8 @@ function TabPanel(props) {
     >
       {value === index && (
         <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
+          {/* <Typography>{children}</Typography> */}
+          {children}
         </Box>
       )}
     </div>
@@ -59,7 +60,7 @@ function ContentBar({bioInfo, roles, sources, connections, works}) {
   return (
     <Container>
 
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
           <Tab label="Biography" {...a11yProps(0)} />
           <Tab label="Works" {...a11yProps(1)} />
@@ -79,7 +80,7 @@ function ContentBar({bioInfo, roles, sources, connections, works}) {
       </TabPanel>
       <TabPanel value={value} index={3}>
         <ESources sources={sources} />
-      </TabPanel>
+      </TabPanel> 
 
       {/* <div className='ContentBar'>
         <div className='FirstBar'>
@@ -94,10 +95,10 @@ function ContentBar({bioInfo, roles, sources, connections, works}) {
           <div className='Works'><Works works={works} /></div>
           <div className='ConnectedPeople'><ConnectedPeople connections={connections} /></div>
           <div className='Sources'><ESources sources={sources} /></div>
-        </div> */}
+        </div>
 
 
-      {/* </div> */}
+    </div> */}
     </Container>
 
   );

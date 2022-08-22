@@ -12,8 +12,8 @@ import './Work.css';
 
 export default function Works({ works }) {
 
-  function createData(id, value1, value2) {
-    return { id, value1, value2 };
+  function createData(value1, value2, value3) {
+    return { value1, value2, value3 };
   }
 
   const rows = works.map((w) => createData(w.id, w.work_date, w.display_title));
@@ -27,17 +27,17 @@ export default function Works({ works }) {
           <TableBody>
             {rows.map((row) => (
               <TableRow
-                key={row.values}
+                key={row.value1}
                 sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
               >
 
                 <TableCell component="th" scope="row">
-                <Link to={`/works/${row.id}`}>
-                    {row.value2}
+                <Link to={`/works/${row.value1}`}>
+                    {row.value3}
                   </Link>
                 </TableCell>
                 <TableCell align="right">
-                  {row.value1}</TableCell></TableRow>
+                  {row.value2}</TableCell></TableRow>
 
 
             ))}

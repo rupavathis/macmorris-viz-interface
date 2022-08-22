@@ -1,6 +1,5 @@
 import { Container } from '@mui/material';
 import React from 'react';
-
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
 import TableCell from '@mui/material/TableCell';
@@ -15,19 +14,31 @@ export default function Biography({bioInfo}) {
   
 function createData(name, values) {
   if (name == "Date of death"){
-    if(bioInfo.date_of_death === undefined || bioInfo.date_of_death === null) {
-      return 0;
-    }
+    if(bioInfo.death_date_type?.name === null ||  bioInfo.death_date_type?.name === undefined ) {
+      if(bioInfo.date_of_death === undefined || bioInfo.date_of_death === null) return 0;          
+      else  {
+        values = bioInfo.date_of_death;
+        return {name, values};
+      }
   }
-  if (name == "Date of birth"){
-    if(bioInfo.date_of_birth === undefined || bioInfo.date_of_birth === null) {
-      return 0;
+  }
+  if (name == "Date of birth"){  
+      if(bioInfo.birth_date_type?.name === null ||  bioInfo.birth_date_type?.name === undefined ) {
+        if(bioInfo.date_of_birth === undefined || bioInfo.date_of_birth === null) return 0;          
+        else  {
+          values = bioInfo.date_of_birth;
+          return {name, values};
+        }
     }
   }
   if (name == "Date of flourishing") {
-    if(bioInfo.flourishing_date_type?.name === undefined || bioInfo.flourishing_date_type?.name === null) {
-      return 0;
-    }
+    if(bioInfo.flourishing_date_type?.name === null ||  bioInfo.flourishing_date_type?.name === undefined ) {
+      if(bioInfo.flourishing_date === undefined || bioInfo.flourishing_date === null) return 0;          
+      else  {
+        values = bioInfo.flourishing_date;
+        return {name, values};
+      }
+  }
   }   
 
   return { name, values };
@@ -44,9 +55,9 @@ function createData(name, values) {
     createData('Husband name ', bioInfo.husbands_name),
     createData('Maiden name ', bioInfo.maiden_name),
     createData('Religious Title ', bioInfo.religious_title),
-    createData('Date of birth', bioInfo.date_of_birth_type?.name + ' ' + bioInfo.date_of_birth),
+    createData('Date of birth', bioInfo.birth_date_type?.name + ' ' + bioInfo.date_of_birth),
     createData('Date of death', bioInfo.death_date_type?.name + ' ' + bioInfo.date_of_death),
-    createData('Date of flourishing', bioInfo.flourishing_date?.name + ' ' + bioInfo.flourishing_date),
+    createData('Date of flourishing', bioInfo.flourishing_date_type?.name + ' ' + bioInfo.flourishing_date),
     createData('Religious Order', bioInfo.religious_order_id),
     createData('Self described identity ', bioInfo.self_described_identity),
     createData('Nationality', bioInfo.nationality),  
