@@ -11,18 +11,18 @@ import ContentBar from '../ContentBar/WorkSearchData.js'
 import Button from '@mui/material/Button';
 
 
-export default function WorkSearch() {
+export default function WorkSearch({ isNetworkSearch, isNetworkFilter }) {
 
   const [workFormats, setWorkFormats] = useState([]);
   const [languages, setLanguages] = useState([]);
   const [workClassifications, setWorkClassifications] = useState([]);
-  const [dateRange, setDateRange] =  useState([]);  
+  const [dateRange, setDateRange] = useState([]);
   const [places, setPlaces] = useState([]);
   const [displayTitles, setDisplayTitles] = useState([]);
   const [peopleData, setPeopleData] = useState([]);
   const [search, setSearch] = useState(false);
 
-  const handleSearch = async() => {
+  const handleSearch = async () => {
     setSearch(true);
     const peopleRes = await fetch(`/works/1`);
     const peopleJson = await peopleRes.json();
@@ -32,7 +32,7 @@ export default function WorkSearch() {
 
 
 
-  const fetchData =  async () => {
+  const fetchData = async () => {
     const workFormatRes = await fetch("/work_formats");
     const workFormatJson = await workFormatRes.json();
     console.log("I'm in fetchGenders");
@@ -59,7 +59,7 @@ export default function WorkSearch() {
 
   useEffect(() => {
     fetchData();
-  },[]);
+  }, []);
 
 
   const [bardicChecked, setBardicChecked] = React.useState(false);
@@ -71,87 +71,99 @@ export default function WorkSearch() {
 
   return (
     <div>
-    <Container>
-      <Autocomplete
-        id="auto-complete"
-        options={workFormats}
-        getOptionLabel={(option) => option.name || ""}
-        autoComplete
-        includeInputInList
-        renderInput={(params) => (
-          <TextField {...params} label="Work Format" variant="standard" />
-        )}
-      />
-       <Autocomplete
-        options={languages}
-        getOptionLabel={(option) => option.name || ""}
-        id="auto-complete"
-        autoComplete
-        includeInputInList
-        renderInput={(params) => (
-          <TextField {...params} label="Language" variant="standard" />
-        )}
-      />
-       <Autocomplete
-        options={workClassifications}
-        getOptionLabel={(option) => option.name || ""}
-        id="auto-complete"
-        autoComplete
-        includeInputInList
-        renderInput={(params) => (
-          <TextField {...params} label="Work Classification" variant="standard" />
-        )}
-      />
-       
-     
-      
-       <Autocomplete
-        options={places}
-        getOptionLabel={(option) => option.name || ""}
-        id="auto-complete"
-        autoComplete
-        includeInputInList
-        renderInput={(params) => (
-          <TextField {...params} label="Place" variant="standard" />
-        )}
-      />
-       <Autocomplete
-        options={displayTitles}
-        getOptionLabel={(option) => option.display_title || ""}
-        id="auto-complete"
-        autoComplete
-        includeInputInList
-        renderInput={(params) => (
-          <TextField {...params} label="Display title" variant="standard" />
-        )}
-      />   
-       <div className="DateRange">
-       <div className="DateRangeLabel">Date Range</div>
-      <TextField
-          id="standard-search"
-          label="From"
-          type="search"
-          variant="standard"
-          size="small"
+      <Container>
+        {!isNetworkSearch && !isNetworkFilter && <Autocomplete
+          id="auto-complete"
+          options={workFormats}
+          getOptionLabel={(option) => option.name || ""}
+          autoComplete
+          includeInputInList
+          renderInput={(params) => (
+            <TextField {...params} label="Work Format" variant="standard" />
+          )}
         />
-        <div className="DateRangeHyphen">-</div> <TextField
-          id="standard-search"
-          label="To"
-          type="search"
-          variant="standard"
-          size="small"
+        }
+        {!isNetworkSearch && !isNetworkFilter &&
+          <FormGroup className="FormBardic">
+            <FormControlLabel control={<Checkbox checked={bardicChecked}
+              onChange={handleBardicChange}
+              inputProps={{ 'aria-label': 'controlled' }}
+            />}
+              label="Bardic poem" />
+          </FormGroup>
+        }
+        {!isNetworkSearch &&
+          <Autocomplete
+            options={languages}
+            getOptionLabel={(option) => option.name || ""}
+            id="auto-complete"
+            autoComplete
+            includeInputInList
+            renderInput={(params) => (
+              <TextField {...params} label="Language" variant="standard" />
+            )}
+          />
+        }
+        <Autocomplete
+          options={workClassifications}
+          getOptionLabel={(option) => option.name || ""}
+          id="auto-complete"
+          autoComplete
+          includeInputInList
+          renderInput={(params) => (
+            <TextField {...params} label="Work Classification" variant="standard" />
+          )}
         />
-      </div>
-    <FormGroup className="FormBardic">
-      <FormControlLabel control={<Checkbox checked={bardicChecked}
-      onChange={handleBardicChange}
-      inputProps={{ 'aria-label': 'controlled' }}
-     />} 
-     label="Is bardic poem?" />
-    </FormGroup>
-    </Container>
-    <Button variant="outlined" onClick={handleSearch}>Search</Button> 
+
+
+        {!isNetworkSearch &&
+          <Autocomplete
+            options={places}
+            getOptionLabel={(option) => option.name || ""}
+            id="auto-complete"
+            autoComplete
+            includeInputInList
+            renderInput={(params) => (
+              <TextField {...params} label="Place" variant="standard" />
+            )}
+          />
+        }
+        {
+          !isNetworkFilter &&
+          <Autocomplete
+            options={displayTitles}
+            getOptionLabel={(option) => option.display_title || ""}
+            id="auto-complete"
+            autoComplete
+            includeInputInList
+            renderInput={(params) => (
+              <TextField {...params} label="Works Title" variant="standard" />
+            )}
+          />
+        }
+        {!isNetworkFilter &&
+          <div className="DateRange">
+            <div className="DateRangeLabel">Date Range</div>
+            <TextField
+              id="standard-search"
+              label="From"
+              type="search"
+              variant="standard"
+              size="small"
+            />
+            <div className="DateRangeHyphen">-</div> <TextField
+              id="standard-search"
+              label="To"
+              type="search"
+              variant="standard"
+              size="small"
+            />
+          </div>
+        }
+
+      </Container>
+      <Button variant="outlined" onClick={handleSearch}>Search</Button>
       {search && <ContentBar data={peopleData} />}
-</div>
+    </div>
   );
 }

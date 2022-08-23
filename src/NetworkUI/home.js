@@ -10,9 +10,9 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Search from './SideBar/Search';
+import Search from './SideBar/SearchFilter';
 import Filter from './SideBar/Filter';
-import Info from './InfoBar/Info';
+import SideBar from './SideBar/SideBar';
 import Legend from './InfoBar/Legend';
 import ContentBar from './ContentBar/ContentBar';
 
@@ -66,7 +66,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function Network() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
 
   const handleDrawerOpen = () => {
     setOpen(true);
@@ -110,10 +110,7 @@ export default function Network() {
             {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
           </IconButton>
         </DrawerHeader>
-        <Divider />
-          <Search />
-        <Divider style={{paddingTop: 40}} />
-          <Filter />
+          <SideBar />
       </Drawer>
       <Main open={open}>
         <DrawerHeader />

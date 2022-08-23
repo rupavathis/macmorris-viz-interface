@@ -8,18 +8,18 @@ import ContentBar from '../ContentBar/ContentBar.js'
 
 
 
-export default function PeopleSearch() {
+export default function PeopleSearch({ isNetworkSearch, isNetworkFilter }) {
 
   const [genders, setGenders] = useState([]);
   const [rDesignations, setRDesignations] = useState([]);
   const [rOrders, setROrders] = useState([]);
-  const [rSubTypes, setRSubTypes] =  useState([]);  
+  const [rSubTypes, setRSubTypes] = useState([]);
   const [roles, setRoles] = useState([]);
   const [roleAttribs, setRoleAttribs] = useState([]);
   const [search, setSearch] = useState(false);
   const [peopleData, setPeopleData] = useState([]);
-  
-  const handleSearch = async() => {
+
+  const handleSearch = async () => {
     setSearch(true);
     const peopleRes = await fetch(`/people/150`);
     const peopleJson = await peopleRes.json();
@@ -28,7 +28,7 @@ export default function PeopleSearch() {
   };
 
 
-  const fetchData =  async () => {
+  const fetchData = async () => {
     const res = await fetch("/genders");
     const resJson = await res.json();
     console.log("I'm in fetchGenders");
@@ -56,7 +56,7 @@ export default function PeopleSearch() {
 
   };
 
-  const onRoleChange = async(e, v) => {
+  const onRoleChange = async (e, v) => {
     console.log(v.length)
     // if(v.length < 0) {
     //   console.log("inside length")
@@ -71,13 +71,13 @@ export default function PeopleSearch() {
 
   useEffect(() => {
     fetchData();
-  },[]);
+  }, []);
 
 
   return (
     <div>
       <Container>
-        <Autocomplete
+        {!isNetworkSearch && <Autocomplete
           filterSelectedOptions
           options={genders}
           id="auto-complete"
@@ -88,36 +88,42 @@ export default function PeopleSearch() {
             <TextField {...params} label="Gender" variant="standard" />
           )}
         />
+        }
 
-        <Autocomplete
-          id="auto-complete"
-          options={rDesignations}
-          getOptionLabel={(option) => option.name || ""}
-          autoComplete
-          includeInputInList
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Religious designation"
-              variant="standard"
-            />
-          )}
-        />
-        <Autocomplete
-          id="auto-complete"
-          multiple
-          options={rSubTypes}
-          getOptionLabel={(option) => option.name || ""}
-          autoComplete
-          includeInputInList
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Religious Subtype"
-              variant="standard"
-            />
-          )}
-        />
+        {!isNetworkSearch &&
+          <Autocomplete
+            id="auto-complete"
+            options={rDesignations}
+            getOptionLabel={(option) => option.name || ""}
+            autoComplete
+            includeInputInList
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Religious designation"
+                variant="standard"
+              />
+            )}
+          />
+        }
+        {!isNetworkSearch && !isNetworkFilter &&
+          <Autocomplete
+            id="auto-complete"
+            multiple
+            options={rSubTypes}
+            getOptionLabel={(option) => option.name || ""}
+            autoComplete
+            includeInputInList
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label="Religious Subtype"
+                variant="standard"
+              />
+            )}
+          />
+        }
+        {!isNetworkFilter &&
         <Autocomplete
           id="auto-complete"
           options={rOrders}
@@ -128,6 +134,8 @@ export default function PeopleSearch() {
             <TextField {...params} label="Religious Order" variant="standard" />
           )}
         />
+          }
+          {!isNetworkFilter &&
         <Autocomplete
           id="auto-complete"
           options={roles}
@@ -139,6 +147,8 @@ export default function PeopleSearch() {
           )}
           onChange={(event, value) => onRoleChange(event, value)}
         />
+          }
+
         {roleAttribs && <Autocomplete
           id="auto-complete"
           multiple
@@ -151,8 +161,9 @@ export default function PeopleSearch() {
           )}
         />}
       </Container>
-      <Button variant="outlined" onClick={handleSearch}>Search</Button> 
+      {!isNetworkFilter && <Button variant="outlined" onClick={handleSearch}>Search</Button>}
       {search && <ContentBar data={peopleData} />}
+      {isNetworkFilter && <Button variant="outlined" onClick={handleSearch}>Filter</Button>}
     </div>
   );
 }

@@ -16,10 +16,10 @@ import Container from "@mui/material/Container";
 
 
 
-export default function AdvancedSearch() {
+export default function AdvancedSearch({isNetworkSearch, isNetworkFilter}) {
   const [selectedValue, setSelectedValue] = React.useState('people');
-  const [search, setSearch] = React.useState(false);
 
+  // setNetwork(networkBool);
   const handleSelectionChange = (event) => {
     console.log(event.target.value);
     setSelectedValue(event.target.value)
@@ -35,7 +35,9 @@ export default function AdvancedSearch() {
         aria-controls="panel1a-content"
         id="panel1a-header"
       >
-        <Typography>Advanced Search</Typography>
+        {!isNetworkSearch && <Typography>Advanced Search</Typography>}
+        {isNetworkSearch && <Typography>Search</Typography>}
+        {isNetworkFilter && <Typography>Filter</Typography>}
       </AccordionSummary>
       <AccordionDetails>
         <FormControl>
@@ -55,8 +57,12 @@ export default function AdvancedSearch() {
             <FormControlLabel value="work" control={<Radio />} label="Work" />
           </RadioGroup>
         </FormControl>
-        {selectedValue === "people" && <PeopleSearch />}
-        {selectedValue === "work" && <WorkSearch />}
+        {selectedValue === "people" && !isNetworkSearch && !isNetworkFilter && <PeopleSearch />}
+        {selectedValue === "work" && !isNetworkSearch && !isNetworkFilter && <WorkSearch />}
+        {selectedValue === "people" && isNetworkSearch && <PeopleSearch isNetworkSearch={true} isNetworkFilter={false}/>}
+        {selectedValue === "work" && isNetworkSearch && <WorkSearch isNetworkSearch={true} isNetworkFilter={false}/>}
+        {selectedValue === "people" && isNetworkFilter && <PeopleSearch isNetworkSearch={false} isNetworkFilter={true}/>}
+        {selectedValue === "work" && isNetworkFilter && <WorkSearch isNetworkSearch={false} isNetworkFilter={true}/>}
       </AccordionDetails>
     </Accordion>
     </Container>

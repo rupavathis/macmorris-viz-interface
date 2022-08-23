@@ -71,7 +71,6 @@ export default function SearchBar() {
       <AdvancedSearch />
       {searchData && <ContentBar data={peopleData} />}
       </Container>
-    // </div>
   );
 }
 

@@ -66,7 +66,7 @@ function Works() {
             works.bookseller_id?.reduce((deletedData, id) => deletedData.concat(`${id.id}`), '')),
         createData('Date', works.work_date),
         createData('Place', works.place?.name),
-        createData('Link URL', works.link_uri)
+        createData('Read the text', works.link_uri)
     ].filter((e) => e.values !== null)
 
     return (
@@ -86,7 +86,7 @@ function Works() {
                                         <TableCell component="th" scope="row">
                                             <b>{row.name}</b>
                                         </TableCell>
-                                        {row.name === "Link URL" && <TableCell align="right">
+                                        {row.name === "Read the text" && <TableCell align="right">
                                             <WebLink href={row.value}>{row.value}</WebLink>
                                         </TableCell>
                                         }
@@ -95,7 +95,7 @@ function Works() {
                                             <Link to={`/profile/${row.id}`}>{row.value}</Link>
                                         </TableCell>
                                         }
-                                        {(row.name !== "Link URL" && row.name !== "Patron" && row.name !== "Printer" && row.name !== "Publisher" && row.name !== "Bookseller" 
+                                        {(row.name !== "Read the text" && row.name !== "Patron" && row.name !== "Printer" && row.name !== "Publisher" && row.name !== "Bookseller" 
                                         && row.name !== "Author") 
                                          && <TableCell align="right">
                                             {row.value}
