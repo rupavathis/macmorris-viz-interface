@@ -1,8 +1,7 @@
 import { Container } from '@mui/system';
-import React, { useCallback, useEffect, useState } from 'react';
+import React from 'react';
 import Biography from './Biography.js';
 import './ContentBar.css';
-import TopInfo from './TopInfoBar'
 import Roles from './Roles.js';
 import ESources from './ExternalSources.js';
 import Works from './Works.js';
@@ -10,7 +9,6 @@ import ConnectedPeople from './ConnectedPeople';
 import PropTypes from 'prop-types';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
 
 

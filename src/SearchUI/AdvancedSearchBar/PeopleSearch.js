@@ -50,6 +50,11 @@ export default function PeopleSearch({ isNetworkSearch, isNetworkFilter }) {
     const rolesJson = await roles.json();
     setRoles(rolesJson);
 
+    // if(isNetworkFilter){
+    //   const attribsRes = await fetch(`/attribs/roles/${v.id}`);
+    //   const attribsJson = await attribsRes.json();
+    //   setRoleAttribs(attribsJson);
+    // }
     // const attribs = await fetch("/attribs");
     // const attribsJson = await attribs.json();
     // setRoleAttribs(attribsJson);
