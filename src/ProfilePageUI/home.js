@@ -3,6 +3,7 @@ import Header from '../SearchUI/Header/Header.js'
 import Footer from '../SearchUI/Footer/Footer';
 import Title from './TitleBar/Title'
 import ContentBar from './ContentBar/ContentBar.js'
+import Roles from './ContentBar/Roles.js';
 import './home.css';
 import { useNavigate } from 'react-router-dom'
 
@@ -109,8 +110,9 @@ function Home() {
 
   return (
     <div className="Profile">
-      <div className='Header'><Header /></div>
+      <div className='Header'><Header /></div>   
       <h1 className='Title'><Title author={authorName} /></h1>
+      <div><Roles roles={roles} /></div>
       <div className='ContentBar'> 
         <ContentBar bioInfo={bioInfo} roles={roles} sources={sources} connections={connections} works={works} />
       </div>

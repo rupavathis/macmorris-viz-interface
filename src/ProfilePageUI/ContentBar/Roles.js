@@ -7,9 +7,12 @@ import TableCell from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
+import Badge from 'react-bootstrap/Badge';
+import Chip from '@mui/material/Chip';
+import Stack from '@mui/material/Stack';
 
 
-export default function Roles({roles}) {
+export default function Roles({ roles }) {
 
   function createData(values) {
     return { values };
@@ -19,7 +22,7 @@ export default function Roles({roles}) {
 
   return (
     <Container>
-        <TableContainer component={Paper}>
+      {/* <TableContainer component={Paper}>
         <Table sx={{ minWidth: 150 }} aria-label="simple table">
           <TableHead>
             <TableRow>
@@ -38,7 +41,14 @@ export default function Roles({roles}) {
             ))}
           </TableBody>
         </Table>
-      </TableContainer>
+      </TableContainer> */}
+
+      {/* {roles.map((role) =><span><Badge bg="secondary">{role}</Badge>{' '}</span>)} */}
+      <Stack direction="row" spacing={1} justifyContent={"center"}>
+        {roles.map((role) =>
+          <Chip label={role} />
+        )}
+      </Stack>
     </Container>
   );
 }

@@ -57,7 +57,6 @@ function ContentBar({bioInfo, roles, sources, connections, works}) {
  
   return (
     <Container>
-
        <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example" centered>
           <Tab label="Biography" {...a11yProps(0)} />
@@ -68,7 +67,7 @@ function ContentBar({bioInfo, roles, sources, connections, works}) {
       </Box>
       <TabPanel value={value} index={0}>
         <Biography bioInfo={bioInfo} />
-        <Roles roles={roles} />
+       
       </TabPanel>
       <TabPanel value={value} index={1}>
         <Works works={works} />

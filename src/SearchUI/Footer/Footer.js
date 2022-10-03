@@ -4,7 +4,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import Twitter from '@mui/icons-material/Twitter';
 import Email from '@mui/icons-material/Email';
 import Info from '@mui/icons-material/Info';
-import Container from '@mui/material/Container';
+import Paper from '@mui/material/Paper';
 
 export default function Footer() {
   const [value, setValue] = React.useState('recents');
@@ -14,6 +14,7 @@ export default function Footer() {
   };
 
   return (
+    <Paper sx={{ position: 'fixed', bottom: 0 }}>
       <BottomNavigation sx={{ width: 500 }} value={value} onChange={handleChange}>
       <BottomNavigationAction
         label="Contact us"
@@ -27,6 +28,7 @@ export default function Footer() {
       />
       <BottomNavigationAction label="Follow us" value="twitter" icon={<Twitter />} />
     </BottomNavigation>
+  </Paper>
   );
 }
 
