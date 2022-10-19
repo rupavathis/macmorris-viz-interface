@@ -143,6 +143,7 @@ export default function PeopleSearch({ isNetworkSearch, isNetworkFilter }) {
           {!isNetworkFilter &&
         <Autocomplete
           id="auto-complete"
+          multiple
           options={roles}
           getOptionLabel={(option) => option.name || ""}
           autoComplete
