@@ -8,16 +8,12 @@ import './SearchBar.css';
 import AsyncSelect from 'react-select/async';
 import debounce from 'lodash.debounce';
 
-
-
-
 export default function SearchBar() {
 
   const [displayNames, setDisplayNames] = React.useState([]);
   const [searchData, setSearchData] = React.useState(false);
   const [peopleData, setPeopleData] = useState({});
   const [inputValue, setInputValue] = React.useState("");
-
 
   const fetchData = async () => {
     const displayNamesRes = await fetch("/names");

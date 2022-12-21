@@ -6,11 +6,12 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 // import FormLabel from '@mui/material/FormLabel';
-
+import Accordion from "@mui/material/Accordion";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import Typography from "@mui/material/Typography";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Container from "@mui/material/Container";
-
-import Accordion from 'react-bootstrap/Accordion';
-
 
 
 
@@ -29,13 +30,16 @@ export default function AdvancedSearch({isNetworkSearch, isNetworkFilter}) {
   return (
     <Container>
     <Accordion>
-    <Accordion.Item eventKey="0">
-           
-        {!isNetworkSearch && <Accordion.Header>Advanced Search</Accordion.Header>}
-        {isNetworkSearch && <Accordion.Header>Search</Accordion.Header>}
-        {isNetworkFilter && <Accordion.Header>Filter</Accordion.Header>}
-
-     <Accordion.Body>  
+      <AccordionSummary
+        expandIcon={<ExpandMoreIcon />}
+        aria-controls="panel1a-content"
+        id="panel1a-header"
+      >
+        {!isNetworkSearch && <Typography>Advanced Search</Typography>}
+        {isNetworkSearch && <Typography>Search</Typography>}
+        {isNetworkFilter && <Typography>Filter</Typography>}
+      </AccordionSummary>
+      <AccordionDetails>
         <FormControl>
           {/* <FormLabel id="demo-row-radio-buttons-group-label">Advanced Search</FormLabel> */}
           <RadioGroup
@@ -55,12 +59,11 @@ export default function AdvancedSearch({isNetworkSearch, isNetworkFilter}) {
         </FormControl>
         {selectedValue === "people" && !isNetworkSearch && !isNetworkFilter && <PeopleSearch />}
         {selectedValue === "work" && !isNetworkSearch && !isNetworkFilter && <WorkSearch />}
-        {selectedValue === "people" && isNetworkSearch && <PeopleSearch isNetworkSearch={true} isNetworkFilter={true}/>}
+        {selectedValue === "people" && isNetworkSearch && <PeopleSearch isNetworkSearch={true} isNetworkFilter={false}/>}
         {selectedValue === "work" && isNetworkSearch && <WorkSearch isNetworkSearch={true} isNetworkFilter={false}/>}
         {selectedValue === "people" && isNetworkFilter && <PeopleSearch isNetworkSearch={false} isNetworkFilter={true}/>}
         {selectedValue === "work" && isNetworkFilter && <WorkSearch isNetworkSearch={false} isNetworkFilter={true}/>}
-      </Accordion.Body>
-        </Accordion.Item>
+      </AccordionDetails>
     </Accordion>
     </Container>
   );

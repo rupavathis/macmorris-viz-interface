@@ -18,10 +18,24 @@ export default function PeopleSearch({ isNetworkSearch, isNetworkFilter }) {
   const [roleAttribs, setRoleAttribs] = useState([]);
   const [search, setSearch] = useState(false);
   const [peopleData, setPeopleData] = useState([]);
+  const [selectedGender, setSelectedGender] = useState();
+  const [selectedRDesignations, setsSelectedRDesignations] = useState([]);
+  const [selectedROrder, setSelectedROrder] = useState();
+  const [selectedAttribs, setSelectedAttribs] = useState([]);
+  const [selectedRSubtype, setSelectedRSubtype] = useState([]);
+  const [selectedRoles, setSelectedRoles] = useState([]);
+
 
   const handleSearch = async () => {
     setSearch(true);
-    const peopleRes = await fetch(`/people/150`);
+    let url = 'search/people?';
+    if (selectedGender != null) url += `gender=${selectedGender}`
+    if (selectedRSubtype != null) url += `&rSubtype=${selectedRSubtype}`
+    if (selectedROrder != null) url += `&rOrder=${selectedROrder}`
+    if (selectedAttribs != null) url += `&attribs=${selectedAttribs}`
+
+    console.log(url)
+    const peopleRes = await fetch(url);
     const peopleJson = await peopleRes.json();
     setPeopleData(peopleJson);
     console.log("People data", peopleJson);
@@ -67,8 +81,9 @@ export default function PeopleSearch({ isNetworkSearch, isNetworkFilter }) {
     //   console.log("inside length")
     //   setRoleAttribs([]);
     // }
-    console.log(v.id);
-    const attribsRes = await fetch(`/attribs/roles/${v.id}`);
+    console.log("id", e, v[0].id);
+    const attribsRes = await fetch(`/attribs/roles/${v[0].id}`);
+    console.log(attribsRes)
     const attribsJson = await attribsRes.json();
     setRoleAttribs(attribsJson);
   }
@@ -80,7 +95,7 @@ export default function PeopleSearch({ isNetworkSearch, isNetworkFilter }) {
 
 
   return (
-    <div>
+    <Container>
       <Container>
         {!isNetworkSearch && <Autocomplete
           filterSelectedOptions
@@ -92,6 +107,7 @@ export default function PeopleSearch({ isNetworkSearch, isNetworkFilter }) {
           renderInput={(params) => (
             <TextField {...params} label="Gender" variant="standard" />
           )}
+          onChange={(event, value) => setSelectedGender(value.id)}
         />
         }
 
@@ -109,6 +125,7 @@ export default function PeopleSearch({ isNetworkSearch, isNetworkFilter }) {
                 variant="standard"
               />
             )}
+            onChange={(event, value) => setsSelectedRDesignations(value.id)}
           />
         }
         {!isNetworkSearch && !isNetworkFilter &&
@@ -126,34 +143,36 @@ export default function PeopleSearch({ isNetworkSearch, isNetworkFilter }) {
                 variant="standard"
               />
             )}
+            onChange={(event, value) => setSelectedRSubtype(value[0].id)}
           />
         }
         {!isNetworkFilter &&
-        <Autocomplete
-          id="auto-complete"
-          options={rOrders}
-          getOptionLabel={(option) => option.name || ""}
-          autoComplete
-          includeInputInList
-          renderInput={(params) => (
-            <TextField {...params} label="Religious Order" variant="standard" />
-          )}
-        />
-          }
-          {!isNetworkFilter &&
-        <Autocomplete
-          id="auto-complete"
-          multiple
-          options={roles}
-          getOptionLabel={(option) => option.name || ""}
-          autoComplete
-          includeInputInList
-          renderInput={(params) => (
-            <TextField {...params} label="Roles" variant="standard" />
-          )}
-          onChange={(event, value) => onRoleChange(event, value)}
-        />
-          }
+          <Autocomplete
+            id="auto-complete"
+            options={rOrders}
+            getOptionLabel={(option) => option.name || ""}
+            autoComplete
+            includeInputInList
+            renderInput={(params) => (
+              <TextField {...params} label="Religious Order" variant="standard" />
+            )}
+            onChange={(event, value) => setSelectedROrder(value.id)}
+          />
+        }
+        {!isNetworkFilter &&
+          <Autocomplete
+            id="auto-complete"
+            multiple
+            options={roles}
+            getOptionLabel={(option) => option.name || ""}
+            autoComplete
+            includeInputInList
+            renderInput={(params) => (
+              <TextField {...params} label="Roles" variant="standard" />
+            )}
+            onChange={(event, value) => onRoleChange(event, value)}
+          />
+        }
 
         {roleAttribs && <Autocomplete
           id="auto-complete"
@@ -165,11 +184,12 @@ export default function PeopleSearch({ isNetworkSearch, isNetworkFilter }) {
           renderInput={(params) => (
             <TextField {...params} label="Attributes" variant="standard" />
           )}
+          onChange={(event, value) => setSelectedAttribs(value[0].id)}
         />}
       </Container>
       {!isNetworkFilter && <Button variant="outlined" onClick={handleSearch}>Search</Button>}
       {search && <ContentBar data={peopleData} />}
       {isNetworkFilter && <Button variant="outlined" onClick={handleSearch}>Filter</Button>}
-    </div>
+    </Container>
   );
 }

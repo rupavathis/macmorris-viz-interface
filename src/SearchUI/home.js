@@ -15,7 +15,6 @@ function Home() {
         {/* <div className='AdvancedSearch'> <AdvancedSearchBar/></div> */}
         <div className='SFooter'> <Footer/> </div>
     </div>
-
   );
 }
 
