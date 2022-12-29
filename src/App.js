@@ -8,7 +8,7 @@ import WorksUI from './WorksUI/home'
 import React from "react";
 import Home from './Home';
 /// app.js
-import 'mapbox-gl/dist/mapbox-gl.css';
+// import 'mapbox-gl/dist/mapbox-gl.css';
 import {
   Routes,
   Route,

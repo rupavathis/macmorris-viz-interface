@@ -1,0 +1,27 @@
+.tooltip {
+    h5 {
+      font-size: 1.1em;
+      margin: 8px 0 0;
+    }
+    p {
+      display: none;
+      text-indent: 4px;
+    }
+  }
+  .tooltip.interactive {
+    border: solid 4px transparent;
+    margin: -4px;
+    background: "white";
+    color: "black";
+    pointer-events: all;
+    width: 240px;
+    max-height: 320px;
+    overflow-y: auto;
+    p {
+      display: block;
+    }
+  }
+
+  .tooktip {
+    color:aqua;
+  }

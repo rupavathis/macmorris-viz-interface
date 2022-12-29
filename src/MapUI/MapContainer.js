@@ -1,0 +1,92 @@
+import React from 'react';
+import DeckGL from 'deck.gl';
+import Map from 'react-map-gl';
+import Pointer from './pointer.svg';
+import 'mapbox-gl/dist/mapbox-gl.css';
+import { useState, useRef } from "react";
+import "./MapContainer.scss";
+import InfoBar from './InfoContainer';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {BitmapLayer, IconLayer} from '@deck.gl/layers';
+import mapImg from './map_of_munster.jpg';
+
+
+
+const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoicnVwYXZhdGhpIiwiYSI6ImNrdTRsZXAyOTE1M3IycXFrNHdjMWNiaDYifQ.CbNM214i-6-BZrn_uVIYCg';
+
+function MapContainer({sites, siteTypes}) {
+
+ 
+  const [show, setShow] = useState(false);
+  const target = useRef(null);
+  const [hoverInfo, setHoverInfo] = useState({});
+
+  const INITIAL_VIEW_STATE = {
+    longitude: -8.625,
+    latitude: 52.258,
+    zoom: 7,
+    maxZoom: 20,
+    pitch: 30,
+    bearing: 0
+  };
+
+  function setSiteColor(d) {
+    if (d.site_type_id === 1) return [76, 0, 153];
+    if (d.site_type_id === 2) return [204.204, 0];
+    if (d.site_type_id === 3) return [76, 153, 0];
+    if (d.site_type_id === 4) return [255, 128, 0];
+    if (d.site_type_id === 5) return [255, 0, 0];
+    if (d.site_type_id === 6) return [0, 140, 0];
+    if (d.site_type_id === 7) return [0, 153, 0];
+  }
+
+
+  const expandTooltip = info => {
+    console.log(info)
+    setHoverInfo(info);
+
+  };
+
+
+  return (
+    <DeckGL
+      initialViewState={INITIAL_VIEW_STATE}
+      controller={true}
+      getTooltip={({ object }) => object && `${object.name}`}>
+
+
+      <Map mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
+        mapStyle='mapbox://styles/mapbox/dark-v11' />
+          {/* <BitmapLayer id='bitmap-layer' bounds={[ -10.927044, 51.482099,-8.142172, 52.657056]} image={mapImg} />  */}
+      <IconLayer
+        id='IconLayer'
+        data={sites}
+        getColor={d => setSiteColor(d)}
+        getIcon={d => 'marker'}
+        getPosition={d => [d.place.longitude, d.place.latitude]}
+        getSize={d => 4}
+        iconAtlas={Pointer}
+        iconMapping={{
+          marker: {
+            x: 0,
+            y: 0,
+            width: 23,
+            height: 25,
+            // anchorY: 20,
+            mask: true
+          }
+        }}
+        sizeScale={8}
+        pickable={true}
+        autoHighlight={true}
+        highlightColor={[0, 0, 128, 128]}
+        onClick={expandTooltip}
+      />
+       {Object.keys(hoverInfo).length != 0  && <InfoBar info={hoverInfo.object} />}
+
+    </DeckGL>
+  )
+
+}
+
+export default MapContainer;
