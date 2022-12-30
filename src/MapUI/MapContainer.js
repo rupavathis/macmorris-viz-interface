@@ -32,11 +32,11 @@ function MapContainer({sites, siteTypes}) {
 
   function setSiteColor(d) {
     if (d.site_type_id === 1) return [76, 0, 153];
-    if (d.site_type_id === 2) return [204.204, 0];
-    if (d.site_type_id === 3) return [76, 153, 0];
+    if (d.site_type_id === 2) return [204, 204, 0];
+    if (d.site_type_id === 3) return [0, 0, 180];
     if (d.site_type_id === 4) return [255, 128, 0];
     if (d.site_type_id === 5) return [255, 0, 0];
-    if (d.site_type_id === 6) return [0, 140, 0];
+    if (d.site_type_id === 6) return [229, 242, 229];
     if (d.site_type_id === 7) return [0, 153, 0];
   }
 

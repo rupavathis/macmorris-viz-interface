@@ -50,7 +50,7 @@ function Home() {
   return (
     <div>
       <MapContainer sites={filteredSites} siteTypes={siteTypes}/>
-      <FilterContainer siteTypes={siteTypes} sites={sites} setFilteredSites={setFilteredSites}/>
+      <FilterContainer siteTypes={siteTypes} sites={sites} setFilteredSites={setFilteredSites} filteredSites={filteredSites} />
     </div>
     
   );
