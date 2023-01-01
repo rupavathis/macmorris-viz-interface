@@ -14,7 +14,8 @@ import mapImg from './map_of_munster.jpg';
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoicnVwYXZhdGhpIiwiYSI6ImNrdTRsZXAyOTE1M3IycXFrNHdjMWNiaDYifQ.CbNM214i-6-BZrn_uVIYCg';
 
-function MapContainer({sites, siteTypes}) {
+
+function MapContainer({sites, siteTypes, mapStyle, historicMap, countSites}) {
 
  
   const [show, setShow] = useState(false);
@@ -31,6 +32,7 @@ function MapContainer({sites, siteTypes}) {
   };
 
   function setSiteColor(d) {
+    if (countSites[d.place_id] != 1) return [0,0,0];  
     if (d.site_type_id === 1) return [76, 0, 153];
     if (d.site_type_id === 2) return [204, 204, 0];
     if (d.site_type_id === 3) return [0, 0, 180];
@@ -42,22 +44,30 @@ function MapContainer({sites, siteTypes}) {
 
 
   const expandTooltip = info => {
-    console.log(info)
     setHoverInfo(info);
+    console.log("hoverInfo", hoverInfo)
 
   };
+
+  const getTooltipInfo = (object) => {
+      if (object && countSites[object.place_id] != 1) return `${countSites[object.place_id]} sites`
+      return object && `${object.name}`
+  }
 
 
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
-      getTooltip={({ object }) => object && `${object.name}`}>
+      // getTooltip={({ object }) => {console.log(object); 
+      //             return object && `${object.name} 
+      //             ${countSites[object.place_id] === 1 ? "": countSites[object.place_id]} sites`}}>
+      getTooltip = {({object}) => getTooltipInfo(object)}>
 
 
       <Map mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
-        mapStyle='mapbox://styles/mapbox/dark-v11' />
-          {/* <BitmapLayer id='bitmap-layer' bounds={[ -10.927044, 51.482099,-8.142172, 52.657056]} image={mapImg} />  */}
+        mapStyle={mapStyle} />
+          {historicMap === "munster" && <BitmapLayer id='bitmap-layer' bounds={[ -10.927044, 51.482099,-8.142172, 52.657056]} image={mapImg} /> } 
       <IconLayer
         id='IconLayer'
         data={sites}
@@ -82,7 +92,9 @@ function MapContainer({sites, siteTypes}) {
         highlightColor={[0, 0, 128, 128]}
         onClick={expandTooltip}
       />
-       {Object.keys(hoverInfo).length != 0  && <InfoBar info={hoverInfo.object} />}
+       {Object.keys(hoverInfo).length != 0  && <InfoBar info={hoverInfo.object} countSites={countSites}
+                                                        sites={sites} />}
+       {/* <InfoBar info={hoverInfo.object} /> */}
 
     </DeckGL>
   )

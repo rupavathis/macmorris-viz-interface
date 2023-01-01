@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography';
 import TabInfo from './TabInfo';
 import Img from '../assets/image.jpg';
 
-export default function InfoContainer({info}) {
+export default function InfoContainer({info, countSites, sites}) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
@@ -17,7 +17,7 @@ export default function InfoContainer({info}) {
         title="green iguana"
       />
       <CardContent>       
-        <TabInfo info={info}/>
+        <TabInfo info={info} countSites={countSites} sites={sites} />
       </CardContent>
       <CardActions>
         <Button size="small">Share</Button>

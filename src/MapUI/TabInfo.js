@@ -38,33 +38,42 @@ function a11yProps(index) {
   };
 }
 
-export default function TabInfo({info}) {
+export default function TabInfo({ info, countSites, sites }) {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
+  function noOfTabs() {
+    const countArr = Array.from(Array(countSites[info?.place_id])).map((e, i) => i + 1)
+    return countArr.map((c) => { console.log("count", c); return <Tab label={c} {...a11yProps(c)} /> })
+  }
+
+  function showTabPanelInfo() {
+
+    const sitesInfo = sites.filter((site) => site.place_id === info?.place_id)
+    console.log("sitesInfo", sitesInfo);
+    let indexCount = -1;
+    return (
+      sitesInfo.map((site) => { indexCount = indexCount + 1;
+        return <TabPanel value={value} index={indexCount}>
+          <div>{site.description}</div>
+           <div>People Connected </div>
+          {site.person_id.map((p) => p.name)} 
+        </TabPanel>
+      }))
+  }
   return (
     <Box sx={{ width: '100%' }}>
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="1" {...a11yProps(0)} />
-          <Tab label="2" {...a11yProps(1)} />
-          <Tab label="3" {...a11yProps(2)} />
+        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
+           variant="scrollable"
+           scrollButtons="auto">
+          {noOfTabs()}
         </Tabs>
       </Box>
-      <TabPanel value={value} index={0}>
-        {info?.description}
-        <div>People Connected</div>
-        {info?.person_id.map((p) => p.name)}
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
+      {showTabPanelInfo() }
     </Box>
   );
 }
