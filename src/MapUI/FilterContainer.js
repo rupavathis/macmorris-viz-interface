@@ -8,9 +8,7 @@ import { useState } from "react";
 const darkStyle = 'mapbox://styles/mapbox/dark-v11'
 const terrainStyle = 'mapbox://styles/rupavathi/clc169gkn000816p6bdrhgdbq'
 
-
-
-function FilterContainer({ siteTypes, sites, setFilteredSites, filteredSites, setMapStyle, setHistoricMap }) {
+function FilterContainer({ siteTypes, sites, setFilteredSites, filteredSites, setMapStyle, setHistoricMap, setCountSites }) {
     const [selectPointer, setSelectPointer] = useState([]);
     const [showSiteType, setShowSiteType] = useState(false);
     const [isMapStyleOn, setIsMapStyleOn] = useState(false);
@@ -20,16 +18,16 @@ function FilterContainer({ siteTypes, sites, setFilteredSites, filteredSites, se
     let addRemoveSelectedPointer = []
 
     return (
-        <div>
+        <div className="filterContainer">
             <Form>
                 {changeMapStyle()}
             </Form>
-            <div className="filterContainer">
+            {/* <div> */}
                 {switchSites(filteredSites.length)}
                 <Form>
                     {selectHistoricMap()}
                 </Form>
-            </div>
+            {/* </div> */}
 
         </div>
     );
@@ -100,8 +98,10 @@ function FilterContainer({ siteTypes, sites, setFilteredSites, filteredSites, se
             return sites.filter(s => s.site_type_id === sp)})
         const flattenedSitesReq = sitesReq.reduce((a,c) => a.concat(c),[] )
         setFilteredSites(flattenedSitesReq);
-
-
+        const countSites = flattenedSitesReq.reduce((a,c) => {const count = a[c.place_id]??0; 
+            return {...a, [c.place_id]:count+1}}, {})
+        console.log(countSites)
+        setCountSites(countSites)
     }
 
     function changeSites() {

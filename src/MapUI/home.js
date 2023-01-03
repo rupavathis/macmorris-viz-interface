@@ -61,7 +61,7 @@ function Home() {
     <div>
       <MapContainer sites={filteredSites} siteTypes={siteTypes} mapStyle={mapStyle} historicMap={historicMap} countSites={countSites}/>
       <FilterContainer siteTypes={siteTypes} sites={sites} setFilteredSites={setFilteredSites} 
-      filteredSites={filteredSites} setMapStyle={setMapStyle} setHistoricMap={setHistoricMap} />
+      filteredSites={filteredSites} setMapStyle={setMapStyle} setHistoricMap={setHistoricMap} setCountSites={setCountSites} />
     </div>
     
   );

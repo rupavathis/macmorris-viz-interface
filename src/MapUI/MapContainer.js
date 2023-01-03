@@ -32,7 +32,7 @@ function MapContainer({sites, siteTypes, mapStyle, historicMap, countSites}) {
   };
 
   function setSiteColor(d) {
-    if (countSites[d.place_id] != 1) return [0,0,0];  
+    if (countSites[d.place_id] != 1) return `linear-gradient(110deg, #fdcd3b 60%, #ffed4b 60%)`;
     if (d.site_type_id === 1) return [76, 0, 153];
     if (d.site_type_id === 2) return [204, 204, 0];
     if (d.site_type_id === 3) return [0, 0, 180];
