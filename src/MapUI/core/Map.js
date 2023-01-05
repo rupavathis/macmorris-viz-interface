@@ -1,26 +1,22 @@
 import React from 'react';
 import DeckGL from 'deck.gl';
 import Map from 'react-map-gl';
-import Pointer from './pointer.svg';
+import Pointer from '../../assets/pointer.svg';
 import 'mapbox-gl/dist/mapbox-gl.css';
 import { useState, useRef } from "react";
-import "./MapContainer.scss";
-import InfoBar from './InfoContainer';
+import "./Map.scss";
+import InfoBar from '../tabs/Info';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {BitmapLayer, IconLayer} from '@deck.gl/layers';
-import mapImg from './map_of_munster.jpg';
-
+import { BitmapLayer, IconLayer } from '@deck.gl/layers';
+import mapImg from '../../assets/map_of_munster.jpg';
 
 
 const MAPBOX_ACCESS_TOKEN = 'pk.eyJ1IjoicnVwYXZhdGhpIiwiYSI6ImNrdTRsZXAyOTE1M3IycXFrNHdjMWNiaDYifQ.CbNM214i-6-BZrn_uVIYCg';
 
-
-function MapContainer({sites, siteTypes, mapStyle, historicMap, countSites}) {
-
- 
+function MapContainer({ sites, siteTypes, mapStyle, historicMap, countSites, setHoverInfo }) {
   const [show, setShow] = useState(false);
   const target = useRef(null);
-  const [hoverInfo, setHoverInfo] = useState({});
+  const [tabClose, setTabClose] = useState(false);
 
   const INITIAL_VIEW_STATE = {
     longitude: -8.625,
@@ -41,33 +37,30 @@ function MapContainer({sites, siteTypes, mapStyle, historicMap, countSites}) {
     if (d.site_type_id === 6) return [229, 242, 229];
     if (d.site_type_id === 7) return [0, 153, 0];
   }
-
+  let hoverInfo = {};
 
   const expandTooltip = info => {
     setHoverInfo(info);
-    console.log("hoverInfo", hoverInfo)
-
+    hoverInfo = info;
+    console.log("im in hoverInfo")
+    setTabClose(true);
   };
 
   const getTooltipInfo = (object) => {
-      if (object && countSites[object.place_id] != 1) return `${countSites[object.place_id]} sites`
-      return object && `${object.name}`
+    if (object && countSites[object.place_id] != 1) return `${countSites[object.place_id]} sites`
+    return object && `${object.name}`
   }
-
 
   return (
     <DeckGL
       initialViewState={INITIAL_VIEW_STATE}
       controller={true}
-      // getTooltip={({ object }) => {console.log(object); 
-      //             return object && `${object.name} 
-      //             ${countSites[object.place_id] === 1 ? "": countSites[object.place_id]} sites`}}>
-      getTooltip = {({object}) => getTooltipInfo(object)}>
-
+      getTooltip={({ object }) => getTooltipInfo(object)}>
 
       <Map mapboxAccessToken={MAPBOX_ACCESS_TOKEN}
         mapStyle={mapStyle} />
-          {historicMap === "munster" && <BitmapLayer id='bitmap-layer' bounds={[ -10.927044, 51.482099,-8.142172, 52.657056]} image={mapImg} /> } 
+      {historicMap === "munster" && <BitmapLayer id='bitmap-layer' bounds={[-10.927044, 51.482099, -8.142172, 52.657056]}
+        image={mapImg} />}
       <IconLayer
         id='IconLayer'
         data={sites}
@@ -82,7 +75,7 @@ function MapContainer({sites, siteTypes, mapStyle, historicMap, countSites}) {
             y: 0,
             width: 23,
             height: 25,
-            // anchorY: 20,
+            anchorY: 30,
             mask: true
           }
         }}
@@ -92,10 +85,8 @@ function MapContainer({sites, siteTypes, mapStyle, historicMap, countSites}) {
         highlightColor={[0, 0, 128, 128]}
         onClick={expandTooltip}
       />
-       {Object.keys(hoverInfo).length != 0  && <InfoBar info={hoverInfo.object} countSites={countSites}
-                                                        sites={sites} />}
-       {/* <InfoBar info={hoverInfo.object} /> */}
-
+       {Object.keys(hoverInfo).length != 0 && tabClose && <InfoBar info={hoverInfo.object} countSites={countSites}
+        sites={sites} setTabClose={setTabClose} />} 
     </DeckGL>
   )
 

@@ -4,6 +4,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import img from "../../assets/image.jpg";
+import './tabs.scss';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -40,12 +42,16 @@ function a11yProps(index) {
 
 export default function TabInfo({ info, countSites, sites }) {
   const [value, setValue] = React.useState(0);
+  const [newValue, setNewValue] = React.useState(0);
+  { console.log("hover", { info }) }
+
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
 
   function noOfTabs() {
+    console.log("place", countSites[info?.place_id])
     const countArr = Array.from(Array(countSites[info?.place_id])).map((e, i) => i + 1)
     return countArr.map((c) => { console.log("count", c); return <Tab label={c} {...a11yProps(c)} /> })
   }
@@ -56,24 +62,38 @@ export default function TabInfo({ info, countSites, sites }) {
     console.log("sitesInfo", sitesInfo);
     let indexCount = -1;
     return (
-      sitesInfo.map((site) => { indexCount = indexCount + 1;
+      sitesInfo.map((site) => {
+        indexCount = indexCount + 1;
+        console.log("indexCount", indexCount, value)
         return <TabPanel value={value} index={indexCount}>
+          <div>{value} {indexCount}</div>
           <div>{site.description}</div>
-           <div>People Connected </div>
-          {site.person_id.map((p) => p.name)} 
+          <hr />
+          <div>People Connected </div>
+          {site.person_id.map((p) => p.name)}
         </TabPanel>
       }))
   }
   return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
-           variant="scrollable"
-           scrollButtons="auto">
-          {noOfTabs()}
-        </Tabs>
-      </Box>
-      {showTabPanelInfo() }
-    </Box>
+    <div className="tab-wrapper">
+      <div className='tab-image'>
+        <img src={img} />
+      </div>
+      <div className='tab-number'>
+        <Box sx={{ width: '100%' }}>
+          <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
+            <Tabs value={value} onChange={handleChange} aria-label="basic tabs example"
+              variant="scrollable"
+              scrollButtons="auto">
+              {noOfTabs()}
+            </Tabs>
+          </Box>
+        </Box>
+      </div>
+      <div className='tab-content'>
+        {showTabPanelInfo()}
+      </div>
+    </div>
+
   );
 }

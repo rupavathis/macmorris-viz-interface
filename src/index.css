@@ -12,11 +12,11 @@ code {
     monospace;
 }
 
-#root {
-  height: 100%
-}
-
 html, body {
   height: 100%;
   overflow: hidden;
+}
+
+#root {
+  height: 100%;
 }

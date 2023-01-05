@@ -1,0 +1,24 @@
+.map-container {
+    flex: 1;
+    .mapboxgl-ctrl-bottom-left {
+      display: none;
+    }
+    .mapboxgl-ctrl-bottom-right {
+      display: none;
+    }
+  }
+
+
+$indigo: rgb(63, 81, 181);
+$red: rgb(209, 9, 49);
+$orange: rgb(209, 108, 13);
+$green: rgb(19, 185, 19);
+$dark-green: rgb(6, 95, 70);
+$sky-blue: hsl(207, 61%, 53%);
+$blue: rgb(37, 99, 235);
+$brown: rgb(161, 97, 58);
+$yellow: rgb(255, 219, 79);
+$mild-yellow: rgb(255, 233, 148);
+$folder-color: rgb(255, 202, 40);
+$file-color: rgb(144, 202, 249);
+$pale-white: rgb(244, 228, 228)

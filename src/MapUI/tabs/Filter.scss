@@ -1,0 +1,149 @@
+// Form{
+//     position: absolute;
+//     color: white
+// }
+
+.filter-wrapper {
+    position: relative;
+
+}
+
+.filter-container {
+    position: absolute;
+    background-color: white;
+    // margin-top: -600px;
+    // min-width: 200px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 10px;
+    left:0;
+    top:60px;
+    border-radius: 2%;
+    transition: 3ms all-in-ease-out;
+    border: 1px solid;
+    font-size: 13px;
+}
+.filterContainer {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+}
+
+.filterContainer-2 {
+    position: relative;
+    color: rgb(208, 200, 200);
+    display: flex;
+    flex-direction: column;
+    box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(153, 149, 149),
+        0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    padding: 10px;
+}
+
+.mapIcon {
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.mapStyle {
+    position: relative;
+    display: flex;
+    // box-shadow: inset 0 -3em 3em rgba(0, 0, 0, 0.1), 0 0 0 2px rgb(153, 149, 149),
+    // 0.3em 0.3em 1em rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    border-radius: 10px;
+    width: 70px;
+    height: 70px;
+    left: 10px;
+    border: 1px solid;
+    align-items: self-end;
+
+}
+
+.mapStyle:hover+.mapStyleList {
+    // display: block;
+    // visibility: visible;
+    transition: opacity 0s;
+    opacity: 1;
+}
+
+.mapStyleList {
+    // display: none;
+    // opacity: 0;
+    // visibility: hidden;
+    // transition: 0.3s;
+
+    transition: opacity 5s;
+    border: 1px solid;
+    display: flex;
+    flex-direction: row;
+    background-color: rgb(199, 134, 49);
+    padding: 10px;
+    height: 100px;
+    width: 180px;
+}
+
+.mapStyleList:hover {
+    opacity: 1;
+    transition: opacity 0.1s;
+}
+
+#terrain {
+    width: 60px;
+    height: 60px;
+    background: url(../../assets/mapStyles.png) -256px 0;
+    background-color: brown;
+}
+
+#dark {
+    width: 60px;
+    height: 60px;
+    background: url(../../assets/mapStyles.png) 0 0;
+}
+
+.siteTypeClick {
+    cursor: pointer;
+}
+
+.siteTypeClick.active {
+    font-weight: bolder;
+    stroke: black;
+    // transform: translateX(5px) scale(1); 
+    // font-size: 10px; 
+    // color: #530e85;
+}
+
+.pointer {
+    height: 25px;
+    width: 23px;
+
+}
+
+.pointer-1 {
+    fill: rgb(76, 0, 153)
+}
+
+.pointer-2 {
+    fill: rgb(204, 204, 0)
+}
+
+.pointer-3 {
+    fill: rgb(0, 0, 180)
+}
+
+.pointer-4 {
+    fill: rgb(255, 128, 0)
+}
+
+.pointer-5 {
+    fill: rgb(255, 0, 0)
+}
+
+.pointer-6 {
+    fill: rgb(229, 242, 229)
+}
+
+.pointer-7 {
+    fill: rgb(0, 153, 0)
+}

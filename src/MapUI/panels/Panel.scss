@@ -1,0 +1,116 @@
+  .top-panel {
+    color: wheat;
+    // padding: 10%;
+    font-size: xx-large;
+    // background-color: orange;
+    left: 0;
+    top: 0;
+    position: absolute;
+  }
+
+  .bottom-panel {
+    background-color: orange;
+    left: 0;
+    bottom: 0;
+    position: absolute;
+    flex-direction: row;
+    display: flex;
+  }
+
+
+  .icon-wrapper {
+    padding: 20px;
+    cursor: pointer;
+    &:hover{
+      background-color: aliceblue;
+      transition: 1ms ease-in-out;
+
+    }
+  }
+  .icon-wrapper-2 {
+    padding-left: 20px;
+    padding-right: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    &:hover{
+      background-color: aliceblue;
+      transition: 1ms ease-in-out;
+
+    }
+  }
+
+  .panel-right {
+    width: 500px;
+    height: 500px;
+    /* max-height: 500px; */
+    overflow: scroll;
+    overflow-x: hidden;
+
+    // min-width: 300px;
+    z-index: 2;
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgb(245, 231, 231);
+    display: flex;
+    flex-direction: column;
+    border-radius: 5px;
+    border: 1px solid red;
+    transition: transform 300ms ease-in-out;
+    &:not(.expanded) {
+      // transform: translateX(calc(100% + 10px)) translateY(-50%);
+      .panel-container .minimize-button {
+        transform: translateX(-100%) translateY(-50%);
+      }
+    }
+  }
+
+  .right-container {
+    flex-direction: column;
+    position: relative;
+    display: flex;
+    flex: 1;
+    width: 100%;
+    &:hover .minimize-button {
+      transform: translateX(-100%) translateY(-50%);
+    }
+    .minimize-button {
+      // @include hover-highlight('5px 0 0 5px');
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      transition: transform 300ms ease-in-out;
+      height: 50px;
+      width: 20px;
+      background-color: yellow;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  
+      &:not(.expanded) > :global(.fa-chevron-right) {
+        transform: rotateZ(180deg);
+      }
+      > :global(.fa-chevron-right) {
+        transition: transform 300ms ease-in-out;
+        margin-left: 3px;
+      }
+    }
+  }
+  // .map-style-wrapper{
+  //   border: 1px solid;
+  //   width: 200px;
+  //   background-color: #555;
+  //   display: flex;
+  //   flex-direction: row;
+  //   padding: 5px;
+  //   position: relative;
+  // }
+
+  // .filter-wrapper{
+  //   position: relative;
+  // }

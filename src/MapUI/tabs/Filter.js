@@ -1,34 +1,37 @@
 import React from 'react';
 import Form from 'react-bootstrap/Form';
-import './FilterContainer.scss';
-import pointer from './pointer.svg';
+import './Filter.scss';
+import pointer from '../../assets/pointer.svg';
 import clsx from 'clsx';
 import { useState } from "react";
+import mapStyle from '../../assets/mapStyles.png';
 
-const darkStyle = 'mapbox://styles/mapbox/dark-v11'
-const terrainStyle = 'mapbox://styles/rupavathi/clc169gkn000816p6bdrhgdbq'
 
-function FilterContainer({ siteTypes, sites, setFilteredSites, filteredSites, setMapStyle, setHistoricMap, setCountSites }) {
+// const darkStyle = 'mapbox://styles/mapbox/dark-v11';
+const darkStyle = 'mapbox://styles/mapbox/dark-v11';
+const terrainStyle = 'mapbox://styles/rupavathi/clc169gkn000816p6bdrhgdbq';
+const satelliteStyle = 'mapbox://styles/mapbox/satellite-v9';
+
+function Filter({ siteTypes, sites, setFilteredSites, filteredSites, setMapStyle, setHistoricMap, setCountSites }) {
     const [selectPointer, setSelectPointer] = useState([]);
     const [showSiteType, setShowSiteType] = useState(false);
     const [isMapStyleOn, setIsMapStyleOn] = useState(false);
     const [isHistoricMapOn, setIsHistoricMapOn] = useState(false);
     const [selectedSiteType, setSelectedSiteType] = useState([]);
 
-    let addRemoveSelectedPointer = []
+    let addRemoveSelectedPointer = [];
 
     return (
-        <div className="filterContainer">
-            <Form>
-                {changeMapStyle()}
-            </Form>
-            {/* <div> */}
+        <div class="filter-wrapper">
+            <div class="filter-container">
                 {switchSites(filteredSites.length)}
+                <hr />
                 <Form>
+                    {changeMapStyle()}
+                    <hr />
                     {selectHistoricMap()}
                 </Form>
-            {/* </div> */}
-
+            </div>
         </div>
     );
 
@@ -38,7 +41,7 @@ function FilterContainer({ siteTypes, sites, setFilteredSites, filteredSites, se
                 Showing {siteLength} sites
                 {siteTypes.map((site) => {
                     return (
-                        <div className={clsx("siteTypeClick", { "active":  selectPointer.includes(site.id) })}
+                        <div className={clsx("siteTypeClick", { "active": selectPointer.includes(site.id) })}
                             id={site.id}
                             onClick={(event) => { setShowSiteType(true); return filterSiteType(event) }}>
                             <svg className={`pointer pointer-${site.id}`}>
@@ -54,7 +57,7 @@ function FilterContainer({ siteTypes, sites, setFilteredSites, filteredSites, se
             <Form.Check
                 type="switch"
                 id="terrain-map"
-                label="Terrain Map"
+                label="Terrain Map style"
                 onChange={() => {
                     setIsMapStyleOn(!isMapStyleOn);
                     !isMapStyleOn && setMapStyle(terrainStyle)
@@ -65,17 +68,22 @@ function FilterContainer({ siteTypes, sites, setFilteredSites, filteredSites, se
 
     function selectHistoricMap() {
         return (
-            <Form.Check
-                type="switch"
-                id="historic-map"
-                label="Munster Map"
-                onChange={() => {
-                    setIsHistoricMapOn(!isHistoricMapOn)
-                    !isHistoricMapOn && setHistoricMap("munster")
-                    isHistoricMapOn && setHistoricMap("")
-                    console.log(isHistoricMapOn)
-                }}
-            />)
+            <div>Historic Maps
+                {["Map of Munster", "Map of Ulster", "Map of xxx"].map((m) => {
+                    return (<Form.Check
+                        type="switch"
+                        id="historic-map"
+                        label={m}
+                        onChange={() => {
+                            setIsHistoricMapOn(!isHistoricMapOn)
+                            !isHistoricMapOn && setHistoricMap("munster")
+                            isHistoricMapOn && setHistoricMap("")
+                            console.log(isHistoricMapOn)
+                        }}
+                    />)
+                })}
+            </div>
+        )
     }
 
     function showCount(site) {
@@ -85,21 +93,25 @@ function FilterContainer({ siteTypes, sites, setFilteredSites, filteredSites, se
 
     function filterSiteType(event) {
         const id = parseInt(event.target.id);
-        if(!selectPointer.includes(id)){
+        if (!selectPointer.includes(id)) {
             addRemoveSelectedPointer = [...selectPointer, id]
             setSelectPointer(addRemoveSelectedPointer)
-        }          
+        }
         else {
             addRemoveSelectedPointer = selectPointer.filter((s) => s !== id)
             setSelectPointer(addRemoveSelectedPointer)
         }
         console.log(selectPointer)
-        const sitesReq = addRemoveSelectedPointer.map((sp) => {console.log(sp); 
-            return sites.filter(s => s.site_type_id === sp)})
-        const flattenedSitesReq = sitesReq.reduce((a,c) => a.concat(c),[] )
+        const sitesReq = addRemoveSelectedPointer.map((sp) => {
+            console.log(sp);
+            return sites.filter(s => s.site_type_id === sp)
+        })
+        const flattenedSitesReq = sitesReq.reduce((a, c) => a.concat(c), [])
         setFilteredSites(flattenedSitesReq);
-        const countSites = flattenedSitesReq.reduce((a,c) => {const count = a[c.place_id]??0; 
-            return {...a, [c.place_id]:count+1}}, {})
+        const countSites = flattenedSitesReq.reduce((a, c) => {
+            const count = a[c.place_id] ?? 0;
+            return { ...a, [c.place_id]: count + 1 }
+        }, {})
         console.log(countSites)
         setCountSites(countSites)
     }
@@ -124,5 +136,5 @@ function FilterContainer({ siteTypes, sites, setFilteredSites, filteredSites, se
 }
 
 
-export default FilterContainer;
+export default Filter;
 
