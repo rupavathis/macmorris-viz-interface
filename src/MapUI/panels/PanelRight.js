@@ -11,7 +11,6 @@ function Panel({hoverInfo, sites, countSites}) {
     return (
         <div className={clsx("panel-right", { "active": {expanded} })}>
             <div class="right-container">
-                Hello
                 <TabInfo info={hoverInfo} sites={sites} 
                     countSites={countSites} />
                 

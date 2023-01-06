@@ -7,6 +7,7 @@ import ProfileUI from './ProfilePageUI/home'
 import WorksUI from './WorksUI/home'
 import React from "react";
 import Home from './Home';
+import SiteUI from './SitesUI/sites';
 /// app.js
 // import 'mapbox-gl/dist/mapbox-gl.css';
 import {
@@ -25,6 +26,7 @@ function App() {
           <Route path="/works/*" element={<WorksUI/>} />
           <Route path="/network" element={<NetworkUI/>} />
           <Route path="/map" element={<MapUI/>} />
+          <Route path="/site/*" element={<SiteUI/>} />
          
         </Routes>
     </div>

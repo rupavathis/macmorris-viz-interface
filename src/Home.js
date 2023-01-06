@@ -29,6 +29,9 @@ function Home() {
             <li>
               <Link to="/map">Map UI</Link>
             </li>
+            <li>
+              <Link to="/site">Sites UI</Link>
+            </li>
           </ul>
         </nav>
     </div>

@@ -31,6 +31,7 @@
     "react-scripts": "5.0.1",
     "react-select": "^5.4.0",
     "react-use-cookie": "^1.4.0",
+    "read-more-react": "^1.0.10",
     "sass": "^1.57.1",
     "scss": "^0.2.4",
     "web-vitals": "^2.1.4"

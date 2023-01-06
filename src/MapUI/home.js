@@ -5,8 +5,8 @@ import './home.scss'
 import Map from './core/Map';
 import Panel from './panels/Panel';
 
-// const darkStyle = 'mapbox://styles/mapbox/dark-v11'
-const darkStyle = 'mapbox://styles/mapbox/satellite-v9';
+const darkStyle = 'mapbox://styles/mapbox/dark-v11'
+// const darkStyle = 'mapbox://styles/mapbox/satellite-v9';
 
 function Home() {
   const [sites, setSites] = React.useState([]);
