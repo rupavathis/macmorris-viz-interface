@@ -6,6 +6,7 @@ import Footer from './Footer/Footer.js';
 
 import './home.css'
 
+
 function Home() {
 
   return (

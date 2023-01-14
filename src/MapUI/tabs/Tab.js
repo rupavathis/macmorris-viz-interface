@@ -77,7 +77,7 @@ export default function TabInfo({ info, countSites, sites }) {
         return <TabPanel value={value} index={indexCount}>
           {/* <div>{value} {indexCount}</div> */}
           <div>{info.name}</div><hr />
-          <ReadMoreReact text={site.description}
+          {/* <ReadMoreReact text={site.description}
             min="50"
             ideal="70"
             max="80"
@@ -86,14 +86,14 @@ export default function TabInfo({ info, countSites, sites }) {
           {/* <div className={clsx({ "active": { readLess } })} onClick={() => setReadLess(true)}>
             Read Less </div> */}
           {/* <div>{site.description}</div> */}
-          <Link to={`/site/${info.id}`} target="_blank" rel="noopener noreferrer">Click here</Link>
+          {/* <Link to={`/site/${info.id}`} target="_blank" rel="noopener noreferrer">Click here</Link>  */}
 
-          <hr />
+          {/* <hr />
           <div>People Connected </div>
 
           {site.person_id.map((p) =>
           (<div><Link to={`/profile/${p.id}`}>{p.name}</Link></div>
-          ))}
+          ))} */}
         </TabPanel>
       }))
   }

@@ -38,6 +38,7 @@ const columns = [
 ];
 
 function ContentBar({ data }) {
+  console.log("content data", data)
   return (
     <Table striped>
       <thead>

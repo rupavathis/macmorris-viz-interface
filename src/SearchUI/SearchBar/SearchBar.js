@@ -3,12 +3,13 @@ import React from 'react';
 import { useEffect, useState, useMemo } from "react";
 import Container from "@mui/material/Container";
 import ContentBar from "../ContentBar/ContentBar";
-import AdvancedSearch from '../AdvancedSearchBar/AdvancedSearchBar';
+import PeopleSearch from '../AdvancedSearchBar/AdvancedSearchBar';
 import './SearchBar.css';
 import AsyncSelect from 'react-select/async';
 import debounce from 'lodash.debounce';
+// import Network from '../../NetworkUI/ContentBar/ContentBar';
 
-export default function SearchBar() {
+export default function SearchBar({isPeople}) {
 
   const [displayNames, setDisplayNames] = React.useState([]);
   const [searchData, setSearchData] = React.useState(false);
@@ -18,7 +19,7 @@ export default function SearchBar() {
   const fetchData = async () => {
     const displayNamesRes = await fetch("/names");
     var displayNamesJson = await displayNamesRes.json();
-    console.log(displayNamesJson)
+    console.log("displayNamesJson", displayNamesJson)
     setDisplayNames(displayNamesJson)
   };
 
@@ -31,6 +32,7 @@ export default function SearchBar() {
     setSearchData(true);
     const peopleRes = await fetch(`/people/${newValue.id}`);
     const peopleJson = await peopleRes.json();
+    console.log("people json", peopleJson);
     setPeopleData(peopleJson);
   };
 
@@ -111,8 +113,10 @@ export default function SearchBar() {
         />}
       </Container>
 
-      <AdvancedSearch />
-      {searchData && <ContentBar data={peopleData} />}
+      {/* <AdvancedSearch /> */}
+      {/* <PeopleSearch isNetworkSearch={true} isNetworkFilter={false}/> */}
+      {/* {searchData && <Network data={peopleData}/>} */}
+      {/* {searchData && <ContentBar data={peopleData} />} */}
     </Container>
   );
 }

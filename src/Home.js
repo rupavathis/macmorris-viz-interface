@@ -1,5 +1,5 @@
 import "./App.css";
-import "./NetworkUI/InfoBar/Info.css";
+// import "./NetworkUI/InfoBar/Info.css";
 import React from "react";
 import {
   Link

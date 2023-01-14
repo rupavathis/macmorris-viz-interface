@@ -1,6 +1,6 @@
 import "./App.css";
-import "./NetworkUI/InfoBar/Info.css";
-import NetworkUI from './NetworkUI/home'
+// import "./NetworkUI/InfoBar/Info.css";
+import NetworkUI from './NetworkUI/index'
 import MapUI from './MapUI/home'
 import SearchUI from "./SearchUI/home";
 import ProfileUI from './ProfilePageUI/home'
